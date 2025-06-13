@@ -92,3 +92,11 @@ Route::middleware('role:ibu')->group(function () {
         Route::put('/profile', [App\Http\Controllers\Ibu\IbuController::class, 'profile'])->name('ibu.profile.update');
     });
 });
+
+Route::get('/make-storage-link', function () {
+    if (auth()->check() && auth()->user()->is_admin) {
+        Artisan::call('storage:link');
+        return 'Symlink berhasil dibuat.';
+    }
+    abort(403);
+});
