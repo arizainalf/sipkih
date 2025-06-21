@@ -132,6 +132,7 @@ class ComposerStaticInit88970a0117c062eed55fa8728fc43833
             'Laravel\\Sail\\' => 13,
             'Laravel\\Prompts\\' => 16,
             'Laravel\\Pail\\' => 13,
+            'LaravelPWA\\' => 11,
         ),
         'I' => 
         array (
@@ -439,6 +440,10 @@ class ComposerStaticInit88970a0117c062eed55fa8728fc43833
         array (
             0 => __DIR__ . '/..' . '/laravel/pail/src',
         ),
+        'LaravelPWA\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/silviolleite/laravelpwa',
+        ),
         'Illuminate\\Support\\' => 
         array (
             0 => __DIR__ . '/..' . '/laravel/framework/src/Illuminate/Macroable',
@@ -554,6 +559,8 @@ class ComposerStaticInit88970a0117c062eed55fa8728fc43833
         'App\\Http\\Controllers\\Admin\\NifasController' => __DIR__ . '/../..' . '/app/Http/Controllers/Admin/NifasController.php',
         'App\\Http\\Controllers\\Admin\\PelayananController' => __DIR__ . '/../..' . '/app/Http/Controllers/Admin/PelayananController.php',
         'App\\Http\\Controllers\\Admin\\PengaturanController' => __DIR__ . '/../..' . '/app/Http/Controllers/Admin/PengaturanController.php',
+        'App\\Http\\Controllers\\Admin\\PeriksaController' => __DIR__ . '/../..' . '/app/Http/Controllers/Admin/PeriksaController.php',
+        'App\\Http\\Controllers\\Admin\\PeriksaKehamilanController' => __DIR__ . '/../..' . '/app/Http/Controllers/Admin/PeriksaKehamilanController.php',
         'App\\Http\\Controllers\\Admin\\RujukanController' => __DIR__ . '/../..' . '/app/Http/Controllers/Admin/RujukanController.php',
         'App\\Http\\Controllers\\Admin\\UserController' => __DIR__ . '/../..' . '/app/Http/Controllers/Admin/UserController.php',
         'App\\Http\\Controllers\\AuthController' => __DIR__ . '/../..' . '/app/Http/Controllers/AuthController.php',
@@ -573,6 +580,7 @@ class ComposerStaticInit88970a0117c062eed55fa8728fc43833
         'App\\Models\\Kehamilan' => __DIR__ . '/../..' . '/app/Models/Kehamilan.php',
         'App\\Models\\Nifas' => __DIR__ . '/../..' . '/app/Models/Nifas.php',
         'App\\Models\\Pelayanan' => __DIR__ . '/../..' . '/app/Models/Pelayanan.php',
+        'App\\Models\\Pengaturan' => __DIR__ . '/../..' . '/app/Models/Pengaturan.php',
         'App\\Models\\PeriksaKehamilan' => __DIR__ . '/../..' . '/app/Models/PeriksaKehamilan.php',
         'App\\Models\\Rujukan' => __DIR__ . '/../..' . '/app/Models/Rujukan.php',
         'App\\Models\\Ttd' => __DIR__ . '/../..' . '/app/Models/Ttd.php',
@@ -702,6 +710,7 @@ class ComposerStaticInit88970a0117c062eed55fa8728fc43833
         'Cron\\MonthField' => __DIR__ . '/..' . '/dragonmantank/cron-expression/src/Cron/MonthField.php',
         'Database\\Factories\\UserFactory' => __DIR__ . '/../..' . '/database/factories/UserFactory.php',
         'Database\\Seeders\\DatabaseSeeder' => __DIR__ . '/../..' . '/database/seeders/DatabaseSeeder.php',
+        'Database\\Seeders\\PengaturanSeeder' => __DIR__ . '/../..' . '/database/seeders/PengaturanSeeder.php',
         'DateError' => __DIR__ . '/..' . '/symfony/polyfill-php83/Resources/stubs/DateError.php',
         'DateException' => __DIR__ . '/..' . '/symfony/polyfill-php83/Resources/stubs/DateException.php',
         'DateInvalidOperationException' => __DIR__ . '/..' . '/symfony/polyfill-php83/Resources/stubs/DateInvalidOperationException.php',
@@ -3056,6 +3065,11 @@ class ComposerStaticInit88970a0117c062eed55fa8728fc43833
         'Illuminate\\View\\ViewFinderInterface' => __DIR__ . '/..' . '/laravel/framework/src/Illuminate/View/ViewFinderInterface.php',
         'Illuminate\\View\\ViewName' => __DIR__ . '/..' . '/laravel/framework/src/Illuminate/View/ViewName.php',
         'Illuminate\\View\\ViewServiceProvider' => __DIR__ . '/..' . '/laravel/framework/src/Illuminate/View/ViewServiceProvider.php',
+        'LaravelPWA\\Http\\Controllers\\LaravelPWAController' => __DIR__ . '/..' . '/silviolleite/laravelpwa/Http/Controllers/LaravelPWAController.php',
+        'LaravelPWA\\Providers\\LaravelPWAServiceProvider' => __DIR__ . '/..' . '/silviolleite/laravelpwa/Providers/LaravelPWAServiceProvider.php',
+        'LaravelPWA\\Providers\\RouteServiceProvider' => __DIR__ . '/..' . '/silviolleite/laravelpwa/Providers/RouteServiceProvider.php',
+        'LaravelPWA\\Services\\ManifestService' => __DIR__ . '/..' . '/silviolleite/laravelpwa/Services/ManifestService.php',
+        'LaravelPWA\\Services\\MetaService' => __DIR__ . '/..' . '/silviolleite/laravelpwa/Services/MetaService.php',
         'Laravel\\Pail\\Console\\Commands\\PailCommand' => __DIR__ . '/..' . '/laravel/pail/src/Console/Commands/PailCommand.php',
         'Laravel\\Pail\\Contracts\\Printer' => __DIR__ . '/..' . '/laravel/pail/src/Contracts/Printer.php',
         'Laravel\\Pail\\File' => __DIR__ . '/..' . '/laravel/pail/src/File.php',

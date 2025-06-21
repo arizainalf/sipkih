@@ -57,7 +57,7 @@ Route::middleware('role:admin')->group(function () {
     });
 });
 
-Route::middleware('auth')->group(function () {
+Route::middleware('role:ibu,admin')->group(function () {
     Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
 });
 
