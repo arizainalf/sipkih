@@ -117,8 +117,11 @@ class AuthController extends Controller
 
     public function logout()
     {
-        Auth::guard('admin')->logout();
-        Auth::guard('ibu')->logout();
+        if (Auth::guard('admin')->check()) {
+            Auth::guard('admin')->logout();
+        } elseif (Auth::guard('ibu')->check()) {
+            Auth::guard('ibu')->logout();
+        }
         return $this->successResponse(null, 'Logout berhasil.');
     }
 }

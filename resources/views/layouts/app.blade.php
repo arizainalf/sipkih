@@ -36,7 +36,7 @@
     </script>
     <!-- /END GA -->
     @stack('styles')
-
+    @laravelPWA
 </head>
 
 <body>
