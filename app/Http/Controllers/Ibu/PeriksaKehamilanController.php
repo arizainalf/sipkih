@@ -92,27 +92,30 @@ class PeriksaKehamilanController extends Controller
             'selectedItems' => $selectedItems,
         ]);
     }
-    public function update(Request $request, Kehamilan $kehamilan)
+    public function update(Request $request, string $id)
     {
-        // Hapus data lama
-        PeriksaKehamilan::where('kehamilan_id', $kehamilan->id)->delete();
+        $existing = PeriksaKehamilan::where('kehamilan_id', $id)->exists();
 
-        // Insert ulang
+        // Jika sudah ada, hapus dulu
+        if ($existing) {
+            PeriksaKehamilan::where('kehamilan_id', $id)->delete();
+        }
+
+        // Insert baru
         if ($request->has('items')) {
-            $data = collect($request->items)->map(function ($itemId) use ($kehamilan) {
+            $data = collect($request->items)->map(function ($itemId) use ($id) {
                 return [
-                    'kehamilan_id'              => $kehamilan->id,
+                    'kehamilan_id'              => $id,
                     'form_periksa_kemahilan_id' => $itemId,
                     'status'                    => true,
-                    'created_at'                => now(),
-                    'updated_at'                => now(),
                 ];
             })->toArray();
 
             PeriksaKehamilan::insert($data);
         }
 
-        return redirect()->route('ibu.periksa.index')->with('success', 'Data berhasil diperbarui.');
+        $message = $existing ? 'Data berhasil diperbarui.' : 'Data berhasil dibuat.';
+        return redirect()->route('ibu.periksa.index')->with('success', $message);
     }
 
 }

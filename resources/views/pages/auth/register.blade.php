@@ -154,7 +154,7 @@
                 const formData = new FormData(this);
 
                 const successCallback = function(response) {
-                    handleSuccess(response, null, '/login')
+                    handleSuccess(response, null, '/')
                 }
 
                 const errorCallback = function(error) {

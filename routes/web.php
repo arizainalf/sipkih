@@ -81,7 +81,7 @@ Route::middleware('role:ibu')->group(function () {
         Route::get('/table/periksa', [App\Http\Controllers\Ibu\PeriksaKehamilanController::class, 'table'])->name('ibu.periksa.table');
         Route::get('/periksa/{id}/tambah', [App\Http\Controllers\Ibu\PeriksaKehamilanController::class, 'tambah'])->name('ibu.periksa.tambah');
         Route::get('/periksa/{id}/edit', [App\Http\Controllers\Ibu\PeriksaKehamilanController::class, 'edit'])->name('ibu.periksa.edit');
-        Route::put('/periksa', [App\Http\Controllers\Ibu\PeriksaKehamilanController::class, 'update'])->name('ibu.periksa.update');
+        Route::put('/periksa/{id}', [App\Http\Controllers\Ibu\PeriksaKehamilanController::class, 'update'])->name('ibu.periksa.update');
         Route::get('/periksa/form', [App\Http\Controllers\Ibu\PeriksaKehamilanController::class, 'getForm'])->name('ibu.periksa.form');
         Route::get('/periksa/form/edit', [App\Http\Controllers\Ibu\PeriksaKehamilanController::class, 'getFormEdit'])->name('ibu.periksa.form.edit');
         Route::post('/periksa', [App\Http\Controllers\Ibu\PeriksaKehamilanController::class, 'store'])->name('ibu.periksa.store');
