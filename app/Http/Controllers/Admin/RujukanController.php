@@ -39,11 +39,12 @@ class RujukanController extends Controller
     public function store(Request $request)
     {
         $validatedData = $request->validate([
-            'ibu_id'          => ['required', 'exists:ibus,id'],
-            'alasan'          => ['required', 'string', 'max:100'],
-            'tanggal_rujukan' => ['required', 'date'],
-            'diagnosa_akhir'  => ['required', 'string', 'max:50'],
-            'anjuran'         => ['required', 'string'], // tambahkan validasi golongan darah
+            'ibu_id'            => ['required', 'exists:ibus,id'],
+            'alasan'            => ['required', 'string', 'max:100'],
+            'tanggal_rujukan'   => ['required', 'date'],
+            'diagnosa_akhir'    => ['required', 'string', 'max:50'],
+            'anjuran'           => ['required', 'string'], // tambahkan validasi golongan darah
+            'tempat_persalinan' => ['required', 'string'],
         ]);
 
         DB::beginTransaction();
@@ -88,11 +89,12 @@ class RujukanController extends Controller
     public function update(Request $request, $id)
     {
         $validatedData = $request->validate([
-            'ibu_id'          => ['required', 'exists:ibus,id'],
-            'alasan'          => ['required', 'string', 'max:100'],
-            'tanggal_rujukan' => ['required', 'date'],
-            'diagnosa_akhir'  => ['required', 'string', 'max:50'],
-            'anjuran'         => ['required', 'string'],
+            'ibu_id'            => ['required', 'exists:ibus,id'],
+            'alasan'            => ['required', 'string', 'max:100'],
+            'tanggal_rujukan'   => ['required', 'date'],
+            'diagnosa_akhir'    => ['required', 'string', 'max:50'],
+            'anjuran'           => ['required', 'string'],
+            'tempat_persalinan' => ['required', 'string'],
         ]);
 
         DB::beginTransaction();

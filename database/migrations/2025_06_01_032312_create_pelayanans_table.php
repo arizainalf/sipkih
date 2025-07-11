@@ -26,7 +26,9 @@ return new class extends Migration
             $table->string('test_golongan_darah');
             $table->string('test_protein_urin');
             $table->string('test_gula_darah');
-            $table->enum('ppia',['reaktif','non reaktif']);
+            $table->string('tablet_tambah_darah');
+            $table->string('imunisasi_tetanus');
+            $table->enum('ppia', ['reaktif', 'non reaktif']);
             $table->string('tata_laksana_kasus')->nullable();
             $table->string('usg');
             $table->timestamps();

@@ -140,6 +140,22 @@
                                     </div>
 
                                     <div class="form-group row">
+                                        <label class="col-sm-4 col-form-label font-weight-bold">Tablet Tambah Darah</label>
+                                        <div class="col-sm-8">
+                                            <p class="form-control-plaintext">{{ $pelayanan->tablet_tambah_darah }}
+                                            </p>
+                                        </div>
+                                    </div>
+                                    
+                                    <div class="form-group row">
+                                        <label class="col-sm-4 col-form-label font-weight-bold">Status Imunisasi dan
+                                            Tetanus</label>
+                                        <div class="col-sm-8">
+                                            <p class="form-control-plaintext">{{ $pelayanan->imunisasi_tetanus }}</p>
+                                        </div>
+                                    </div>
+
+                                    <div class="form-group row">
                                         <label class="col-sm-4 col-form-label font-weight-bold">PPIA</label>
                                         <div class="col-sm-8">
                                             <p class="form-control-plaintext">{{ ucfirst($pelayanan->ppia) }}</p>

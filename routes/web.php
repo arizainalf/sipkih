@@ -26,6 +26,11 @@ Route::middleware('role:admin')->group(function () {
         Route::get('/kehamilan/{kehamilan}/kalender', [App\Http\Controllers\Admin\KehamilanController::class, 'kalender'])->name('kehamilan.kalender');
         Route::get('/kehamilan/{kehamilan}/kalender/events', [App\Http\Controllers\Admin\KehamilanController::class, 'getTanggalEvents'])->name('kehamilan.kalender.events');
         Route::post('/kehamilan/ttd/{ttd}/toggle', [App\Http\Controllers\Admin\KehamilanController::class, 'toggleTanggal'])->name('kehamilan.ttd.toggle');
+        Route::put('/kehamilan/{id}/detailMenyambut', [App\Http\Controllers\Admin\KehamilanController::class, 'updateMenyambutPersalinan'])->name('admin.kehamilan.update.menyambut');
+        Route::put('/kehamilan/{id}/bayi', [App\Http\Controllers\Admin\KehamilanController::class, 'updateBayi'])->name('admin.kehamilan.update.bayi');
+        Route::put('/kehamilan/{id}/kunjungan-nifas', [App\Http\Controllers\Admin\KehamilanController::class, 'updateKunjunganNifas'])->name('admin.kehamilan.update.kunjungan');
+        Route::put('/kehamilan/{id}/kesimpulan-nifas', [App\Http\Controllers\Admin\KehamilanController::class, 'updateKesimpulanNifas'])->name('admin.kehamilan.update.kesimpulan');
+        Route::put('/kehamilan/{id}/persalinan', [App\Http\Controllers\Admin\KehamilanController::class, 'updatePersalinan'])->name('admin.kehamilan.update.persalinan');
 
         Route::resource('/pelayanan', App\Http\Controllers\Admin\PelayananController::class)->names('admin.pelayanan');
         Route::get('/pelayanan/{id}/detail', [App\Http\Controllers\Admin\PelayananController::class, 'detail'])->name('admin.pelayanan.detail');

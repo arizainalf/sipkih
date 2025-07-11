@@ -18,6 +18,7 @@ return new class extends Migration
             $table->date('tanggal_rujukan');
             $table->string('diagnosa_akhir');
             $table->string('anjuran');
+            $table->string('tempat_persalinan');
             $table->timestamps();
         });
     }
