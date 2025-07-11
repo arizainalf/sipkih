@@ -16,6 +16,8 @@
             <th>Test Gol. Darah</th>
             <th>Test Protein Urin</th>
             <th>Test Gula Darah</th>
+            <th>Tablet Tambah Darah</th>
+            <th>Imunisasi dan Tetanus</th>
             <th>PPIA</th>
             <th>Tata Laksana Kasus</th>
             <th>Usg</th>
@@ -40,6 +42,8 @@
                 <td>{{ $pelayanan->test_golongan_darah }}</td>
                 <td>{{ $pelayanan->test_protein_urin }}</td>
                 <td>{{ $pelayanan->test_gula_darah }}</td>
+                <td>{{ $pelayanan->tablet_tambah_darah }}</td>
+                <td>{{ $pelayanan->imunisasi_tetanus }}</td>
                 <td>{{ $pelayanan->ppia }}</td>
                 <td>{{ $pelayanan->tata_laksana_kasus }}</td>
                 <td>{{ $pelayanan->usg }}</td>
@@ -66,6 +70,9 @@
             <tr>
                 <td>-</td>
                 <td class="text-center">Tidak ada data ditemukan</td>
+                <td>-</td>
+                <td>-</td>
+                <td>-</td>
                 <td>-</td>
                 <td>-</td>
                 <td>-</td>

@@ -1,6 +1,6 @@
  <footer class="main-footer">
                 <div class="footer-left">
-                    Copyright &copy; 2018 <div class="bullet"></div> BSI
+                    Copyright &copy; {{ now('Y') }} <div class="bullet"></div> {{ getPengaturan()->nama_aplikasi }}
                 </div>
                 <div class="footer-right">
 

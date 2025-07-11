@@ -7,12 +7,14 @@
         <div class="login-brand">
             <img src="{{ asset('storage/' . getPengaturan()->logo) }}" alt="logo" width="100"
                 class="shadow-light rounded-circle">
+
+            <h5 class="mt-4">{{ getPengaturan()->nama_aplikasi }}</h5>
+            <h6 class="mt-1">{{ getPengaturan()->deskripsi }}</h6>
         </div>
 
         <div class="card card-primary">
             <div class="card-header">
                 <h4 id="login-title">Login</h4>
-                <h4 id="login-title">{{ auth()->check() }}</h4>
             </div>
 
             <div class="card-body">
@@ -53,12 +55,12 @@
                         <div class="input-group">
                             <input id="user-password" type="password" class="form-control" name="password" tabindex="2"
                                 required>
-                                <div class="input-group-append">
-                                    <button class="btn bg-white border" type="button"
-                                        onclick="togglePasswordVisibility('#user-password', '#toggle-password'); event.preventDefault();">
-                                        <i id="toggle-password" class="fas fa-eye"></i>
-                                    </button>
-                                </div>
+                            <div class="input-group-append">
+                                <button class="btn bg-white border" type="button"
+                                    onclick="togglePasswordVisibility('#user-password', '#toggle-password'); event.preventDefault();">
+                                    <i id="toggle-password" class="fas fa-eye"></i>
+                                </button>
+                            </div>
                             <div class="invalid-feedback">
                                 Masukan tanggal lahir anda contoh 2000-02-02
                             </div>
@@ -116,13 +118,14 @@
                             Login
                         </button>
                     </div>
+                    <div class="mt-5 text-muted text-center">
+                        Ibu belum punya akun? <a href="{{ route('register') }}">Buat Sekarang</a>
+                    </div>
                 </form>
             </div>
         </div>
 
-        <div class="mt-5 text-muted text-center">
-            Ibu belum punya akun? <a href="{{ route('register') }}">Buat Sekarang</a>
-        </div>
+
         <div class="simple-footer">
             Copyright &copy;
         </div>

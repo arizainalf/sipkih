@@ -148,6 +148,22 @@
                                 <div class="invalid-feedback" id="errorusg"></div>
                             </div>
                         </div>
+                        <div class="col-md-6">
+                            <div class="form-group mb-2">
+                                <label for="tablet_tambah_darah">Tablet Tambah Darah</label>
+                                <input type="text" name="tablet_tambah_darah" id="tablet_tambah_darah"
+                                    class="form-control" required>
+                                <div class="invalid-feedback" id="errortablet_tambah_darah"></div>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group mb-2">
+                                <label for="imunisasi_tetanus">Status Imunisasi dan Tetanus</label>
+                                <input type="text" name="imunisasi_tetanus" id="imunisasi_tetanus"
+                                    class="form-control" required>
+                                <div class="invalid-feedback" id="errorimunisasi_tetanus"></div>
+                            </div>
+                        </div>
                     </div>
 
                     <!-- Textarea untuk input panjang -->

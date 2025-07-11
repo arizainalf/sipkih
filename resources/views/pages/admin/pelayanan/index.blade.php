@@ -98,6 +98,8 @@
                         'test_golongan_darah',
                         'test_protein_urin',
                         'test_gula_darah',
+                        'tablet_tambah_darah',
+                        'imunisasi_tetanus',
                         'ppia',
                         'tata_laksana_kasus',
                         'usg',

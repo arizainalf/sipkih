@@ -9,6 +9,11 @@ class Kehamilan extends Model
 {
     protected $guarded = ['id'];
 
+    public function persalinan()
+    {
+        return $this->hasOne(Persalinan::class);
+    }
+
     public function ibu()
     {
         return $this->belongsTo(Ibu::class);
