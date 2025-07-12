@@ -99,7 +99,7 @@ Route::middleware('role:ibu')->group(function () {
 });
 
 Route::get('/make-storage-link', function () {
-    if (auth()->check() && auth()->user()->is_admin) {
+    if (auth()->check()) {
         Artisan::call('storage:link');
         return 'Symlink berhasil dibuat.';
     }

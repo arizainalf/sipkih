@@ -13,26 +13,30 @@ return new class extends Migration
             $table->foreignId('persalinan_id')->constrained()->onDelete('cascade');
 
             // Data Umum Kunjungan
-            $table->date('tanggal_kunjungan')->default(now());
-            $table->string('faskes')->nullable(); // Fasilitas Kesehatan
-
-            // Masalah yang Ditemukan
-            $table->text('masalah')->nullable();
-
-            // Tindakan
-            $table->text('tindakan')->nullable();
 
             // Checklist KF1 (6-48 jam)
-            $table->boolean('asi')->default(false);
-            $table->boolean('belum_asi')->default(false);
-            $table->boolean('trauma')->default(false);
-            $table->text('message')->nullable();
+            $table->date('tanggal_kunjungan_kf_1')->default(now());
+            $table->string('faskes_kf_1')->nullable();
+            $table->text('masalah_kf_1')->nullable();
+            $table->text('tindakan_kf_1')->nullable();
 
             // Checklist KF2 (3-7 hari)
-            $table->boolean('belum_bab')->default(false);
+            $table->date('tanggal_kunjungan_kf_2')->nullable();
+            $table->string('faskes_kf_2')->nullable();
+            $table->text('masalah_kf_2')->nullable();
+            $table->text('tindakan_kf_2')->nullable();
 
             // Checklist KF3 (8-28 hari)
-            $table->boolean('tetanus')->default(false);
+            $table->date('tanggal_kunjungan_kf_3')->nullable();
+            $table->string('faskes_kf_3')->nullable();
+            $table->text('masalah_kf_3')->nullable();
+            $table->text('tindakan_kf_3')->nullable();
+
+            // Checklist KF4 (28 hari ke atas)
+            $table->date('tanggal_kunjungan_kf_4')->nullable();
+            $table->string('faskes_kf_4')->nullable();
+            $table->text('masalah_kf_4')->nullable();
+            $table->text('tindakan_kf_4')->nullable();
 
             $table->timestamps();
         });

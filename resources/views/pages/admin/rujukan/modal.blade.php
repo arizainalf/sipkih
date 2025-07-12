@@ -43,6 +43,15 @@
                         <div class="invalid-feedback" id="erroranjuran"></div>
                     </div>
 
+                    <div class="form-group mb-1">
+                        <label for="tempat_persalinan">Tempat Persalinan</label>
+                        <select class="form-control" name="tempat_persalinan" required>
+                            <option value="fktp">FKTP</option>
+                            <option value="fkrtl">FKTRL</option>
+                        </select>
+                        <div class="invalid-feedback" id="errortempat_persalinan"></div>
+                    </div>
+
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-dismiss="modal">Tutup</button>

@@ -540,102 +540,154 @@
                                                 value="{{ $kehamilan->persalinan->id }}">
 
                                             <div class="modal-body">
-                                                <div class="row">
-                                                    <div class="col-md-6">
-                                                        <div class="form-group mb-2">
-                                                            <label for="tanggal_kunjungan">Tanggal Kunjungan</label>
-                                                            <input type="date" name="tanggal_kunjungan"
-                                                                id="tanggal_kunjungan" class="form-control" required
-                                                                value="{{ $kehamilan->persalinan->kunjunganNifas->tanggal_kunjungan }}">
-                                                            <div class="invalid-feedback" id="error-tanggal_kunjungan">
+                                                <!-- KF1 Section (6-48 jam) -->
+                                                <div class="card mb-3">
+                                                    <div class="card-header">KF1 - 6-48 Jam</div>
+                                                    <div class="card-body">
+                                                        <div class="row">
+                                                            <div class="col-md-6">
+                                                                <div class="form-group mb-2">
+                                                                    <label for="tanggal_kunjungan_kf_1">Tanggal
+                                                                        Kunjungan</label>
+                                                                    <input type="date" name="tanggal_kunjungan_kf_1"
+                                                                        id="tanggal_kunjungan_kf_1" class="form-control"
+                                                                        value="{{ $kehamilan->persalinan->kunjunganNifas->tanggal_kunjungan_kf_1 ?? '' }}">
+                                                                </div>
+                                                            </div>
+                                                            <div class="col-md-6">
+                                                                <div class="form-group mb-2">
+                                                                    <label for="faskes_kf_1">Fasilitas Kesehatan</label>
+                                                                    <input type="text" name="faskes_kf_1"
+                                                                        id="faskes_kf_1" class="form-control"
+                                                                        value="{{ $kehamilan->persalinan->kunjunganNifas->faskes_kf_1 ?? '' }}">
+                                                                </div>
                                                             </div>
                                                         </div>
 
                                                         <div class="form-group mb-2">
-                                                            <label for="faskes">Fasilitas Kesehatan</label>
-                                                            <input type="text" name="faskes" id="faskes"
-                                                                class="form-control" required
-                                                                value="{{ $kehamilan->persalinan->kunjunganNifas->faskes }}">
-                                                            <div class="invalid-feedback" id="error-faskes"></div>
-                                                        </div>
-                                                    </div>
-
-                                                    <div class="col-md-6">
-                                                        <div class="form-group mb-2">
-                                                            <label for="masalah">Masalah yang Ditemukan</label>
-                                                            <textarea name="masalah" id="masalah" class="form-control" rows="2">{{ $kehamilan->persalinan->kunjunganNifas->masalah }}</textarea>
+                                                            <label for="masalah_kf_1">Masalah yang Ditemukan</label>
+                                                            <textarea name="masalah_kf_1" id="masalah_kf_1" class="form-control" rows="2">{{ $kehamilan->persalinan->kunjunganNifas->masalah_kf_1 ?? '' }}</textarea>
                                                         </div>
 
                                                         <div class="form-group mb-2">
-                                                            <label for="tindakan">Tindakan</label>
-                                                            <textarea name="tindakan" id="tindakan" class="form-control" rows="2">{{ $kehamilan->persalinan->kunjunganNifas->tindakan }}</textarea>
+                                                            <label for="tindakan_kf_1">Tindakan</label>
+                                                            <textarea name="tindakan_kf_1" id="tindakan_kf_1" class="form-control" rows="2">{{ $kehamilan->persalinan->kunjunganNifas->tindakan_kf_1 ?? '' }}</textarea>
                                                         </div>
                                                     </div>
                                                 </div>
 
-                                                <!-- KF1 Specific -->
-                                                <div class="card mb-3 kf1-fields">
-                                                    <div class="card-header">KF1 - 6-48 Jam</div>
-                                                    <div class="card-body">
-                                                        <div class="form-check mb-2">
-                                                            <input class="form-check-input" type="checkbox"
-                                                                name="asi" id="asi"
-                                                                {{ $kehamilan->persalinan->kunjunganNifas->asi ? 'checked' : '' }}>
-                                                            <label class="form-check-label" for="asi">ASI</label>
-                                                        </div>
-                                                        <div class="form-check mb-2">
-                                                            <input class="form-check-input" type="checkbox"
-                                                                name="belum_asi" id="belum_asi"
-                                                                {{ $kehamilan->persalinan->kunjunganNifas->belum_asi ? 'checked' : '' }}>
-                                                            <label class="form-check-label" for="belum_asi">BELUM
-                                                                ASI</label>
-                                                        </div>
-                                                        <div class="form-check mb-2">
-                                                            <input class="form-check-input" type="checkbox"
-                                                                name="trauma" id="trauma"
-                                                                {{ $kehamilan->persalinan->kunjunganNifas->trauma ? 'checked' : '' }}>
-                                                            <label class="form-check-label" for="trauma">Trauma</label>
-                                                        </div>
-                                                        <div class="form-group mb-2">
-                                                            <label for="message">Message</label>
-                                                            <input type="text" name="message" id="message"
-                                                                class="form-control"
-                                                                value="{{ $kehamilan->persalinan->kunjunganNifas->message }}">
-                                                        </div>
-                                                    </div>
-                                                </div>
-
-                                                <!-- KF2 Specific -->
-                                                <div class="card mb-3 kf2-fields">
+                                                <!-- KF2 Section (3-7 hari) -->
+                                                <div class="card mb-3">
                                                     <div class="card-header">KF2 - 3-7 Hari</div>
                                                     <div class="card-body">
-                                                        <div class="form-check mb-2">
-                                                            <input class="form-check-input" type="checkbox"
-                                                                name="belum_bab" id="belum_bab"
-                                                                {{ $kehamilan->persalinan->kunjunganNifas->belum_bab ? 'checked' : '' }}>
-                                                            <label class="form-check-label" for="belum_bab">BELUM
-                                                                BAB</label>
+                                                        <div class="row">
+                                                            <div class="col-md-6">
+                                                                <div class="form-group mb-2">
+                                                                    <label for="tanggal_kunjungan_kf_2">Tanggal
+                                                                        Kunjungan</label>
+                                                                    <input type="date" name="tanggal_kunjungan_kf_2"
+                                                                        id="tanggal_kunjungan_kf_2" class="form-control"
+                                                                        value="{{ $kehamilan->persalinan->kunjunganNifas->tanggal_kunjungan_kf_2 ?? '' }}">
+                                                                </div>
+                                                            </div>
+                                                            <div class="col-md-6">
+                                                                <div class="form-group mb-2">
+                                                                    <label for="faskes_kf_2">Fasilitas Kesehatan</label>
+                                                                    <input type="text" name="faskes_kf_2"
+                                                                        id="faskes_kf_2" class="form-control"
+                                                                        value="{{ $kehamilan->persalinan->kunjunganNifas->faskes_kf_2 ?? '' }}">
+                                                                </div>
+                                                            </div>
                                                         </div>
+
+                                                        <div class="form-group mb-2">
+                                                            <label for="masalah_kf_2">Masalah yang Ditemukan</label>
+                                                            <textarea name="masalah_kf_2" id="masalah_kf_2" class="form-control" rows="2">{{ $kehamilan->persalinan->kunjunganNifas->masalah_kf_2 ?? '' }}</textarea>
+                                                        </div>
+
+                                                        <div class="form-group mb-2">
+                                                            <label for="tindakan_kf_2">Tindakan</label>
+                                                            <textarea name="tindakan_kf_2" id="tindakan_kf_2" class="form-control" rows="2">{{ $kehamilan->persalinan->kunjunganNifas->tindakan_kf_2 ?? '' }}</textarea>
+                                                        </div>
+
+
                                                     </div>
                                                 </div>
 
-                                                <!-- KF3 Specific -->
-                                                <div class="card mb-3 kf3-fields">
+                                                <!-- KF3 Section (8-28 hari) -->
+                                                <div class="card mb-3">
                                                     <div class="card-header">KF3 - 8-28 Hari</div>
                                                     <div class="card-body">
-                                                        <div class="form-check mb-2">
-                                                            <input class="form-check-input" type="checkbox"
-                                                                name="tetanus" id="tetanus"
-                                                                {{ $kehamilan->persalinan->kunjunganNifas->tetanus ? 'checked' : '' }}>
-                                                            <label class="form-check-label" for="tetanus">Tetanus</label>
+                                                        <div class="row">
+                                                            <div class="col-md-6">
+                                                                <div class="form-group mb-2">
+                                                                    <label for="tanggal_kunjungan_kf_3">Tanggal
+                                                                        Kunjungan</label>
+                                                                    <input type="date" name="tanggal_kunjungan_kf_3"
+                                                                        id="tanggal_kunjungan_kf_3" class="form-control"
+                                                                        value="{{ $kehamilan->persalinan->kunjunganNifas->tanggal_kunjungan_kf_3 ?? '' }}">
+                                                                </div>
+                                                            </div>
+                                                            <div class="col-md-6">
+                                                                <div class="form-group mb-2">
+                                                                    <label for="faskes_kf_3">Fasilitas Kesehatan</label>
+                                                                    <input type="text" name="faskes_kf_3"
+                                                                        id="faskes_kf_3" class="form-control"
+                                                                        value="{{ $kehamilan->persalinan->kunjunganNifas->faskes_kf_3 ?? '' }}">
+                                                                </div>
+                                                            </div>
+                                                        </div>
+
+                                                        <div class="form-group mb-2">
+                                                            <label for="masalah_kf_3">Masalah yang Ditemukan</label>
+                                                            <textarea name="masalah_kf_3" id="masalah_kf_3" class="form-control" rows="2">{{ $kehamilan->persalinan->kunjunganNifas->masalah_kf_3 ?? '' }}</textarea>
+                                                        </div>
+
+                                                        <div class="form-group mb-2">
+                                                            <label for="tindakan_kf_3">Tindakan</label>
+                                                            <textarea name="tindakan_kf_3" id="tindakan_kf_3" class="form-control" rows="2">{{ $kehamilan->persalinan->kunjunganNifas->tindakan_kf_3 ?? '' }}</textarea>
+                                                        </div>
+
+
+                                                    </div>
+                                                </div>
+
+                                                <!-- KF4 Section (28 hari ke atas) -->
+                                                <div class="card mb-3">
+                                                    <div class="card-header">KF4 - 28 Hari Ke Atas</div>
+                                                    <div class="card-body">
+                                                        <div class="row">
+                                                            <div class="col-md-6">
+                                                                <div class="form-group mb-2">
+                                                                    <label for="tanggal_kunjungan_kf_4">Tanggal
+                                                                        Kunjungan</label>
+                                                                    <input type="date" name="tanggal_kunjungan_kf_4"
+                                                                        id="tanggal_kunjungan_kf_4" class="form-control"
+                                                                        value="{{ $kehamilan->persalinan->kunjunganNifas->tanggal_kunjungan_kf_4 ?? '' }}">
+                                                                </div>
+                                                            </div>
+                                                            <div class="col-md-6">
+                                                                <div class="form-group mb-2">
+                                                                    <label for="faskes_kf_4">Fasilitas Kesehatan</label>
+                                                                    <input type="text" name="faskes_kf_4"
+                                                                        id="faskes_kf_4" class="form-control"
+                                                                        value="{{ $kehamilan->persalinan->kunjunganNifas->faskes_kf_4 ?? '' }}">
+                                                                </div>
+                                                            </div>
+                                                        </div>
+
+                                                        <div class="form-group mb-2">
+                                                            <label for="masalah_kf_4">Masalah yang Ditemukan</label>
+                                                            <textarea name="masalah_kf_4" id="masalah_kf_4" class="form-control" rows="2">{{ $kehamilan->persalinan->kunjunganNifas->masalah_kf_4 ?? '' }}</textarea>
+                                                        </div>
+
+                                                        <div class="form-group mb-2">
+                                                            <label for="tindakan_kf_4">Tindakan</label>
+                                                            <textarea name="tindakan_kf_4" id="tindakan_kf_4" class="form-control" rows="2">{{ $kehamilan->persalinan->kunjunganNifas->tindakan_kf_4 ?? '' }}</textarea>
                                                         </div>
                                                     </div>
                                                 </div>
 
-                                                <div class="form-group mb-2">
-                                                    <label for="keterangan_tambahan">Keterangan Tambahan</label>
-                                                    <textarea name="keterangan_tambahan" id="keterangan_tambahan_kunjungan" class="form-control" rows="2">{{ $kehamilan->persalinan->kunjunganNifas->keterangan_tambahan }}</textarea>
-                                                </div>
                                             </div>
 
                                             <div class="modal-footer">
@@ -858,7 +910,8 @@
 @push('scripts')
     <!-- JS Libraies -->
     <script src="{{ asset('') }}assets/modules/datatables/datatables.min.js"></script>
-    <script src="{{ asset('') }}assets/modules/datatables/DataTables-1.10.16/js/dataTables.bootstrap4.min.js"></script>
+    <script src="{{ asset('') }}assets/modules/datatables/DataTables-1.10.16/js/dataTables.bootstrap4.min.js">
+    </script>
     <script src="{{ asset('') }}assets/modules/datatables/Select-1.2.4/js/dataTables.select.min.js"></script>
     <script src="{{ asset('') }}assets/modules/jquery-ui/jquery-ui.min.js"></script>
     <script src="{{ asset('') }}assets/modules/chart.min.js"></script>
@@ -921,9 +974,6 @@
                 const $form = $('#form-tambah-pelayanan');
                 $form[0].reset();
                 $form.attr('data-id', '');
-
-                loadSelectOptions('#kehamilan_id-pelayanan', '{{ route('admin.kehamilan.index') }}')
-
             })
 
             $(document).on('click', '.edit-button-pelayanan', function(e) {
@@ -960,9 +1010,6 @@
                     ],
                     callback: function(response) {
                         console.log(response, 'callback edit')
-                        loadSelectOptions('#kehamilan_id',
-                            '{{ route('admin.kehamilan.index') }}', response.kehamilan_id)
-
                     },
                     onFetched: null,
                 })
@@ -1022,9 +1069,6 @@
                 const $form = $('#form-tambah-nifas');
                 $form[0].reset();
                 $form.attr('data-id', '');
-
-                loadSelectOptions('#kehamilan_id-nifas', '{{ route('admin.kehamilan.index') }}')
-
             })
 
             $(document).on('click', '.edit-button-nifas', function(e) {
@@ -1035,9 +1079,6 @@
                 const $form = $('#form-tambah-nifas');
                 $form[0].reset();
                 $form.attr('data-id', id);
-
-                loadSelectOptions('#kehamilan_id-nifas', '{{ route('admin.kehamilan.index') }}',
-                    '{{ $kehamilan->id }}')
 
                 initEditModal({
                     formSelector: '#form-tambah-nifas',

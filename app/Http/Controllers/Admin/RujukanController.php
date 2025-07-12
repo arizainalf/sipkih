@@ -100,6 +100,7 @@ class RujukanController extends Controller
         DB::beginTransaction();
 
         try {
+
             $rujukan = Rujukan::findOrFail($id);
             $rujukan->update($validatedData);
 
