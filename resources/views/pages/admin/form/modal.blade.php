@@ -12,7 +12,7 @@
                 <div class="modal-body">
                     <div class="form-group mb-1">
                         <label form="nama">Nama</label>
-                        <input type="text" name="nama" id="nama" class="form-control">
+                        <textarea name="nama" id="nama" class="form-control"></textarea>
                         <div class="invalid-feedback" id="errornama"></div>
                     </div>
                 </div>

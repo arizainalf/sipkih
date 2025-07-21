@@ -1941,35 +1941,43 @@ namespace App\Models {
      *
      * @property \Illuminate\Support\Carbon|null $updated_at
      * @property \Illuminate\Support\Carbon|null $created_at
-     * @property bool $tetanus
-     * @property bool $mudra
-     * @property bool $ayruba
-     * @property bool $belum_bab
-     * @property string|null $message
-     * @property bool $trauma
-     * @property bool $belum_asi
-     * @property bool $asi
-     * @property string|null $tindakan
-     * @property string|null $masalah
-     * @property string|null $faskes
-     * @property string $tanggal_kunjungan
+     * @property string|null $tindakan_kf_4
+     * @property string|null $masalah_kf_4
+     * @property string|null $faskes_kf_4
+     * @property string|null $tanggal_kunjungan_kf_4
+     * @property string|null $tindakan_kf_3
+     * @property string|null $masalah_kf_3
+     * @property string|null $faskes_kf_3
+     * @property string|null $tanggal_kunjungan_kf_3
+     * @property string|null $tindakan_kf_2
+     * @property string|null $masalah_kf_2
+     * @property string|null $faskes_kf_2
+     * @property string|null $tanggal_kunjungan_kf_2
+     * @property string|null $tindakan_kf_1
+     * @property string|null $masalah_kf_1
+     * @property string|null $faskes_kf_1
+     * @property string $tanggal_kunjungan_kf_1
      * @property int $persalinan_id
      * @property int $id
      * @property-read \App\Models\Persalinan $persalinan
      * @method static \Illuminate\Database\Eloquent\Builder<KunjunganNifas>|KunjunganNifas whereId($value)
      * @method static \Illuminate\Database\Eloquent\Builder<KunjunganNifas>|KunjunganNifas wherePersalinanId($value)
-     * @method static \Illuminate\Database\Eloquent\Builder<KunjunganNifas>|KunjunganNifas whereTanggalKunjungan($value)
-     * @method static \Illuminate\Database\Eloquent\Builder<KunjunganNifas>|KunjunganNifas whereFaskes($value)
-     * @method static \Illuminate\Database\Eloquent\Builder<KunjunganNifas>|KunjunganNifas whereMasalah($value)
-     * @method static \Illuminate\Database\Eloquent\Builder<KunjunganNifas>|KunjunganNifas whereTindakan($value)
-     * @method static \Illuminate\Database\Eloquent\Builder<KunjunganNifas>|KunjunganNifas whereAsi($value)
-     * @method static \Illuminate\Database\Eloquent\Builder<KunjunganNifas>|KunjunganNifas whereBelumAsi($value)
-     * @method static \Illuminate\Database\Eloquent\Builder<KunjunganNifas>|KunjunganNifas whereTrauma($value)
-     * @method static \Illuminate\Database\Eloquent\Builder<KunjunganNifas>|KunjunganNifas whereMessage($value)
-     * @method static \Illuminate\Database\Eloquent\Builder<KunjunganNifas>|KunjunganNifas whereBelumBab($value)
-     * @method static \Illuminate\Database\Eloquent\Builder<KunjunganNifas>|KunjunganNifas whereAyruba($value)
-     * @method static \Illuminate\Database\Eloquent\Builder<KunjunganNifas>|KunjunganNifas whereMudra($value)
-     * @method static \Illuminate\Database\Eloquent\Builder<KunjunganNifas>|KunjunganNifas whereTetanus($value)
+     * @method static \Illuminate\Database\Eloquent\Builder<KunjunganNifas>|KunjunganNifas whereTanggalKunjunganKf1($value)
+     * @method static \Illuminate\Database\Eloquent\Builder<KunjunganNifas>|KunjunganNifas whereFaskesKf1($value)
+     * @method static \Illuminate\Database\Eloquent\Builder<KunjunganNifas>|KunjunganNifas whereMasalahKf1($value)
+     * @method static \Illuminate\Database\Eloquent\Builder<KunjunganNifas>|KunjunganNifas whereTindakanKf1($value)
+     * @method static \Illuminate\Database\Eloquent\Builder<KunjunganNifas>|KunjunganNifas whereTanggalKunjunganKf2($value)
+     * @method static \Illuminate\Database\Eloquent\Builder<KunjunganNifas>|KunjunganNifas whereFaskesKf2($value)
+     * @method static \Illuminate\Database\Eloquent\Builder<KunjunganNifas>|KunjunganNifas whereMasalahKf2($value)
+     * @method static \Illuminate\Database\Eloquent\Builder<KunjunganNifas>|KunjunganNifas whereTindakanKf2($value)
+     * @method static \Illuminate\Database\Eloquent\Builder<KunjunganNifas>|KunjunganNifas whereTanggalKunjunganKf3($value)
+     * @method static \Illuminate\Database\Eloquent\Builder<KunjunganNifas>|KunjunganNifas whereFaskesKf3($value)
+     * @method static \Illuminate\Database\Eloquent\Builder<KunjunganNifas>|KunjunganNifas whereMasalahKf3($value)
+     * @method static \Illuminate\Database\Eloquent\Builder<KunjunganNifas>|KunjunganNifas whereTindakanKf3($value)
+     * @method static \Illuminate\Database\Eloquent\Builder<KunjunganNifas>|KunjunganNifas whereTanggalKunjunganKf4($value)
+     * @method static \Illuminate\Database\Eloquent\Builder<KunjunganNifas>|KunjunganNifas whereFaskesKf4($value)
+     * @method static \Illuminate\Database\Eloquent\Builder<KunjunganNifas>|KunjunganNifas whereMasalahKf4($value)
+     * @method static \Illuminate\Database\Eloquent\Builder<KunjunganNifas>|KunjunganNifas whereTindakanKf4($value)
      * @method static \Illuminate\Database\Eloquent\Builder<KunjunganNifas>|KunjunganNifas whereCreatedAt($value)
      * @method static \Illuminate\Database\Eloquent\Builder<KunjunganNifas>|KunjunganNifas whereUpdatedAt($value)
      * @method static \Illuminate\Database\Eloquent\Builder<KunjunganNifas>|KunjunganNifas newModelQuery()
@@ -3883,7 +3891,6 @@ namespace App\Models {
      *
      * @property \Illuminate\Support\Carbon|null $updated_at
      * @property \Illuminate\Support\Carbon|null $created_at
-     * @property string $tempat_persalinan
      * @property string $anjuran
      * @property string $diagnosa_akhir
      * @property string $tanggal_rujukan
@@ -3897,7 +3904,6 @@ namespace App\Models {
      * @method static \Illuminate\Database\Eloquent\Builder<Rujukan>|Rujukan whereTanggalRujukan($value)
      * @method static \Illuminate\Database\Eloquent\Builder<Rujukan>|Rujukan whereDiagnosaAkhir($value)
      * @method static \Illuminate\Database\Eloquent\Builder<Rujukan>|Rujukan whereAnjuran($value)
-     * @method static \Illuminate\Database\Eloquent\Builder<Rujukan>|Rujukan whereTempatPersalinan($value)
      * @method static \Illuminate\Database\Eloquent\Builder<Rujukan>|Rujukan whereCreatedAt($value)
      * @method static \Illuminate\Database\Eloquent\Builder<Rujukan>|Rujukan whereUpdatedAt($value)
      * @method static \Illuminate\Database\Eloquent\Builder<Rujukan>|Rujukan newModelQuery()

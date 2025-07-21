@@ -57,35 +57,43 @@
     <script>
         $(document).ready(function() {
 
-            let isEdit;
+            let isEdit = false; // Inisialisasi dengan false
 
             $(document).on('click', '#tambah-button', function(e) {
                 e.preventDefault();
+                isEdit = false; // Pastikan mode tambah
 
                 const $form = $('#form-tambah');
                 $form[0].reset();
-                $form.attr('data-id', '');
-            })
+                $form.removeAttr('data-id'); // Hapus data-id jika ada
+
+                // Reset semua field validasi jika menggunakan plugin validasi
+                $form.find('.is-invalid').removeClass('is-invalid');
+                $form.find('.invalid-feedback').remove();
+
+                // Reset judul modal jika perlu
+                $('#modal-tambah .modal-title').text('Tambah Form');
+            });
 
             $(document).on('click', '.edit-button', function(e) {
                 e.preventDefault();
-                const id = $(this).data('id');
-                isEdit = true;
+                isEdit = true; // Set mode edit
 
+                const id = $(this).data('id');
                 const $form = $('#form-tambah');
-                $form[0].reset();
                 $form.attr('data-id', id);
+
+                // Update judul modal
+                $('#modal-tambah .modal-title').text('Edit Form');
 
                 initEditModal({
                     formSelector: '#form-tambah',
                     url: `admin/form/${id}`,
-                    fields: [
-                        'nama',
-                    ],
+                    fields: ['nama'],
                     callback: null,
                     onFetched: null,
-                })
-            })
+                });
+            });
 
             $(document).on('submit', '#form-tambah', function(e) {
                 e.preventDefault();

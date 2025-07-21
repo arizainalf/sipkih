@@ -60,7 +60,7 @@ class FormPeriksaKehamilanController extends Controller
     public function store(Request $request)
     {
         $validatedData = $request->validate([
-            'nama' => ['required', 'string', 'max:100'],
+            'nama' => ['required', 'string'],
         ]);
 
         DB::beginTransaction();
@@ -73,7 +73,7 @@ class FormPeriksaKehamilanController extends Controller
 
             return $this->successResponse(
                 $form,
-                'Berhasil mendaftar',
+                'Data Form berhasil ditambahkan',
                 201
             );
 
@@ -82,7 +82,7 @@ class FormPeriksaKehamilanController extends Controller
 
             return $this->errorResponse(
                 null,
-                'Gagal mendaftar. Silakan coba lagi. ' . $e->getMessage(),
+                'Gagal menambahkan data Form. Silakan coba lagi. ' . $e->getMessage(),
                 500// HTTP Internal Server Error
             );
         }
@@ -107,7 +107,7 @@ class FormPeriksaKehamilanController extends Controller
     public function update(Request $request, $id)
     {
         $validatedData = $request->validate([
-            'nama' => ['required', 'string', 'max:100'],
+            'nama' => ['required', 'string'],
         ]);
 
         DB::beginTransaction();
@@ -121,7 +121,7 @@ class FormPeriksaKehamilanController extends Controller
 
             return $this->successResponse(
                 $form,
-                'Data ibu berhasil diperbarui',
+                'Data Form berhasil diperbarui',
                 200
             );
 
@@ -131,7 +131,7 @@ class FormPeriksaKehamilanController extends Controller
 
             return $this->errorResponse(
                 null,
-                'Data ibu tidak ditemukan',
+                'Data Form tidak ditemukan',
                 404
             );
 
