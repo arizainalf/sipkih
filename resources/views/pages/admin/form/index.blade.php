@@ -89,7 +89,7 @@
                 initEditModal({
                     formSelector: '#form-tambah',
                     url: `admin/form/${id}`,
-                    fields: ['nama'],
+                    fields: ['nama', 'status'],
                     callback: null,
                     onFetched: null,
                 });
@@ -119,6 +119,7 @@
                 const errorCallback = function(error) {
                     handleValidationErrors(error, '#form-tambah', [
                         'nama',
+                        'status',
                     ])
                 }
 

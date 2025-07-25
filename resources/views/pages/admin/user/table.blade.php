@@ -21,7 +21,7 @@
                             <i class="fas fa-edit"></i>
                         </button>
                         <button
-                            onclick="confirmDelete('{{ route('admin.rujukan.destroy', $user->id) }}','.table-responsive', '{{ route('admin.user.table') }}', '#tabel-user')"
+                            onclick="confirmDelete('{{ route('admin.user.destroy', $user->id) }}','.table-responsive', '{{ route('admin.user.table') }}', '#tabel-user')"
                             class="btn btn-danger delete-button" data-toggle="tooltip" title="Hapus">
                             <i class="fas fa-trash"></i>
                         </button>

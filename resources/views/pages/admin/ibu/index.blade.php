@@ -68,6 +68,8 @@
                 $form[0].reset();
                 $form.attr('data-id', id);
 
+                $('#modalLabel').text('Edit Data Ibu')
+
                 initEditModal({
                     formSelector: '#form-tambah',
                     url: `admin/ibu/${id}`,
@@ -83,6 +85,7 @@
                         'telepon',
                         'suami',
                         'alamat',
+                        'status_kehidupan'
                     ],
                     callback: null,
                     onFetched: null,
@@ -106,7 +109,7 @@
 
                 const successCallback = function(response) {
                     handleSuccess(response, 'modal-tambah')
-                    loadData('.table-responsive', "{{ route('admin.ibu.index') }}", '#tabel-ibu')
+                    loadData('.table-responsive', "{{ route('admin.ibu.table') }}", '#tabel-ibu')
                 }
 
                 const errorCallback = function(error) {
@@ -123,13 +126,14 @@
                         'telepon',
                         'suami',
                         'alamat',
+                        'status_kehidupan'
                     ])
                 }
 
                 ajaxCall(url, "POST", formData, successCallback, errorCallback);
             })
 
-            loadData('.table-responsive', "{{ route('admin.ibu.index') }}", '#tabel-ibu')
+            loadData('.table-responsive', "{{ route('admin.ibu.table') }}", '#tabel-ibu')
         })
     </script>
 @endpush

@@ -13,6 +13,7 @@
             <th>Alamat</th>
             <th>Telepon</th>
             <th>Suami</th>
+            <th>Status</th>
             <th>Aksi</th>
         </tr>
     </thead>
@@ -45,10 +46,11 @@
                 <td class="text-wrap">{{ $ibu->alamat }}</td>
                 <td>{{ $ibu->telepon }}</td>
                 <td>{{ $ibu->suami }}</td>
+                <td>{{ $ibu->status_kehidupan == '1' ? 'Hidup' : 'Meninggal' }}</td>
                 <td class="align-middle">
                     <div class="btn-group">
-                        <a href="{{ route('admin.periksa.index', $ibu->id) }}" class="btn btn-success" data-toggle="tooltip"
-                            title="Detail">
+                        <a href="{{ route('admin.periksa.index', $ibu->id) }}" class="btn btn-success"
+                            data-toggle="tooltip" title="Detail">
                             <i class="fas fa-calendar"></i>
                         </a>
                         <a href="{{ route('admin.ibu.detail', $ibu->id) }}" class="btn btn-info" data-toggle="tooltip"
@@ -70,7 +72,7 @@
             </tr>
         @empty
             <tr>
-                <td colspan="13" class="text-center">Tidak ada data ditemukan</td>
+                <td colspan="14" class="text-center">Tidak ada data ditemukan</td>
             </tr>
         @endforelse
     </tbody>

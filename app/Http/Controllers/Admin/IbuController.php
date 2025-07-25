@@ -18,20 +18,25 @@ class IbuController extends Controller
     public function index(Request $request)
     {
         if ($request->ajax() && $request->mode == 'select') {
-            $data = Ibu::with('kehamilans')->get();
+            $data = Ibu::with('kehamilans')->where('status_kehidupan', true)->get();
             return $this->successResponse(
                 $data,
                 'Data berhasil ditemukan',
             );
-        } else if ($request->ajax()) {
-
-            $ibus = Ibu::with('kehamilans')->get();
-            $data = [
-                'view' => view('pages.admin.ibu.table', compact('ibus'))->render(),
-            ];
-            return $this->successResponse($data, 'Data berhasil ditemukan.');
         }
         return view('pages.admin.ibu.index');
+    }
+
+    public function table(Request $request)
+    {
+        // if ($request->ajax()) {
+
+        $ibus = Ibu::with('kehamilans')->get();
+        $data = [
+            'view' => view('pages.admin.ibu.table', compact('ibus'))->render(),
+        ];
+        return $this->successResponse($data, 'Data berhasil ditemukan.');
+        // }
     }
 
     /**
@@ -59,24 +64,24 @@ class IbuController extends Controller
     public function store(Request $request)
     {
         $validatedData = $request->validate([
-            'nik'            => ['required', 'string', 'max:32', 'unique:ibus,nik'],
-            'nama'           => ['required', 'string', 'max:100'],
-            'pembiayaan'     => ['required', 'in:Mandiri,KIS,KIP'],
-            'no_jkn'         => ['required', 'string', 'max:50'],
-            'golongan_darah' => ['required', 'string', 'max:2', 'in:A,B,AB,O'], // tambahkan validasi golongan darah
-            'tempat_lahir'   => ['required', 'string', 'max:50'],
-            'tanggal_lahir'  => ['required', 'date', 'before:today'], // pastikan tanggal lahir valid
-            'pendidikan'     => ['required', 'in:sd,smp,sma,d3,s1,s2,s3'],
-            'pekerjaan'      => ['required', 'string', 'max:50'],
-            'alamat'         => ['required', 'string', 'max:255'],
-            'telepon'        => ['required', 'string', 'max:15', 'regex:/^[0-9]+$/'], // hanya angka
-            'suami'          => ['required', 'string', 'max:100'],
+            'nik'              => ['required', 'string', 'max:32', 'unique:ibus,nik'],
+            'nama'             => ['required', 'string', 'max:100'],
+            'pembiayaan'       => ['required', 'in:Mandiri,KIS,KIP'],
+            'no_jkn'           => ['required', 'string', 'max:50'],
+            'golongan_darah'   => ['required', 'string', 'max:2', 'in:A,B,AB,O'],
+            'tempat_lahir'     => ['required', 'string', 'max:50'],
+            'tanggal_lahir'    => ['required', 'date', 'before:today'],
+            'pendidikan'       => ['required', 'in:sd,smp,sma,d3,s1,s2,s3'],
+            'pekerjaan'        => ['required', 'string', 'max:50'],
+            'alamat'           => ['required', 'string', 'max:255'],
+            'telepon'          => ['required', 'string', 'max:15', 'regex:/^[0-9]+$/'],
+            'suami'            => ['required', 'string', 'max:100'],
+            'status_kehidupan' => ['required', 'boolean'], // Added validation
         ]);
 
         DB::beginTransaction();
 
         try {
-
             $ibu = Ibu::create($validatedData);
 
             DB::commit();
@@ -93,7 +98,7 @@ class IbuController extends Controller
             return $this->errorResponse(
                 null,
                 'Gagal mendaftar. Silakan coba lagi. ' . $e->getMessage(),
-                500// HTTP Internal Server Error
+                500
             );
         }
     }
@@ -109,24 +114,25 @@ class IbuController extends Controller
         }
         return $this->successResponse($ibu, 'Data berhasil ditemukan');
     }
-    /**
-     * Update the specified resource in storage.
-     */
+/**
+ * Update the specified resource in storage.
+ */
     public function update(Request $request, $id)
     {
         $validatedData = $request->validate([
-            'nik'            => ['required', 'string', 'max:32', Rule::unique('ibus', 'nik')->ignore($id)],
-            'nama'           => ['required', 'string', 'max:100'],
-            'pembiayaan'     => ['required', 'in:Mandiri,KIS,KIP'],
-            'no_jkn'         => ['required', 'string', 'max:50'],
-            'golongan_darah' => ['required', 'string', 'max:2', 'in:A,B,AB,O'],
-            'tempat_lahir'   => ['required', 'string', 'max:50'],
-            'tanggal_lahir'  => ['required', 'date', 'before:today'],
-            'pendidikan'     => ['required', 'in:sd,smp,sma,d3,s1,s2,s3'],
-            'pekerjaan'      => ['required', 'string', 'max:50'],
-            'alamat'         => ['required', 'string', 'max:255'],
-            'telepon'        => ['required', 'string', 'max:15', 'regex:/^[0-9]+$/'],
-            'suami'          => ['required', 'string', 'max:100'],
+            'nik'              => ['required', 'string', 'max:32', Rule::unique('ibus', 'nik')->ignore($id)],
+            'nama'             => ['required', 'string', 'max:100'],
+            'pembiayaan'       => ['required', 'in:Mandiri,KIS,KIP'],
+            'no_jkn'           => ['required', 'string', 'max:50'],
+            'golongan_darah'   => ['required', 'string', 'max:2', 'in:A,B,AB,O'],
+            'tempat_lahir'     => ['required', 'string', 'max:50'],
+            'tanggal_lahir'    => ['required', 'date', 'before:today'],
+            'pendidikan'       => ['required', 'in:sd,smp,sma,d3,s1,s2,s3'],
+            'pekerjaan'        => ['required', 'string', 'max:50'],
+            'alamat'           => ['required', 'string', 'max:255'],
+            'telepon'          => ['required', 'string', 'max:15', 'regex:/^[0-9]+$/'],
+            'suami'            => ['required', 'string', 'max:100'],
+            'status_kehidupan' => ['required', 'boolean'], // Added validation
         ]);
 
         DB::beginTransaction();

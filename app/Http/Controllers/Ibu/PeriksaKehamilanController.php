@@ -27,13 +27,14 @@ class PeriksaKehamilanController extends Controller
     public function tambah(string $id)
     {
         $kehamilan = Kehamilan::with('ibu')->where('id', $id)->first();
-        $forms     = FormPeriksaKehamilan::all();
+        $forms     = FormPeriksaKehamilan::where('status', true)->get();
         return view('pages.ibu.periksa.tambah', compact('kehamilan', 'forms'));
     }
 
     public function getForm()
     {
         $data = FormPeriksaKehamilan::orderBy('id')
+            ->where('status', true)
             ->get();
 
         return $this->successResponse($data, 'Data berhasil ditemukan.');
@@ -41,7 +42,7 @@ class PeriksaKehamilanController extends Controller
     public function getFormEdit()
     {
         $data = PeriksaKehamilan::with('form_periksa_kehamilan')->orderBy('id')
-            ->get();
+            ->get()->where('status', true);
 
         return $this->successResponse($data, 'Data berhasil ditemukan.');
     }
@@ -85,7 +86,9 @@ class PeriksaKehamilanController extends Controller
     public function edit(string $id)
     {
         $kehamilan     = Kehamilan::with('ibu')->where('id', $id)->first();
-        $selectedItems = PeriksaKehamilan::where('kehamilan_id', $id)->pluck('form_periksa_kemahilan_id')->toArray();
+        $selectedItems = PeriksaKehamilan::where('kehamilan_id', $id)->where('status', true)->pluck('form_periksa_kemahilan_id')->toArray();
+
+        // dd($selectedItems);
 
         return view('pages.ibu.periksa.edit', [
             'kehamilan'     => $kehamilan,
@@ -94,28 +97,39 @@ class PeriksaKehamilanController extends Controller
     }
     public function update(Request $request, string $id)
     {
-        $existing = PeriksaKehamilan::where('kehamilan_id', $id)->exists();
+        $request->validate([
+            'items'   => 'array', // bisa kosong
+            'items.*' => 'exists:form_periksa_kehamilans,id',
+        ]);
 
-        // Jika sudah ada, hapus dulu
-        if ($existing) {
+        DB::beginTransaction();
+        try {
+            // Hapus dulu data sebelumnya
             PeriksaKehamilan::where('kehamilan_id', $id)->delete();
-        }
 
-        // Insert baru
-        if ($request->has('items')) {
-            $data = collect($request->items)->map(function ($itemId) use ($id) {
+            // Ambil semua form ID
+            $allForms = FormPeriksaKehamilan::where('status', true)->pluck('id')->toArray();
+            $selected = array_map('intval', $request->input('items', [])); // pastikan tipe integer
+            // dd($request->input('items'), $allForms, $selected);
+
+            $data = collect($allForms)->map(function ($formId) use ($id, $selected) {
                 return [
                     'kehamilan_id'              => $id,
-                    'form_periksa_kemahilan_id' => $itemId,
-                    'status'                    => true,
+                    'form_periksa_kemahilan_id' => $formId,
+                    'status'                    => in_array($formId, $selected),
+                    'created_at'                => now(),
+                    'updated_at'                => now(),
                 ];
             })->toArray();
 
             PeriksaKehamilan::insert($data);
-        }
 
-        $message = $existing ? 'Data berhasil diperbarui.' : 'Data berhasil dibuat.';
-        return redirect()->route('ibu.periksa.index')->with('success', $message);
+            DB::commit();
+            return $this->successResponse(null, 'Data berhasil diperbarui.');
+        } catch (\Throwable $th) {
+            DB::rollBack();
+            return $this->errorResponse(null, $th->getMessage());
+        }
     }
 
 }

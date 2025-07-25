@@ -3,6 +3,7 @@
         <tr>
             <th class="text-center">#</th>
             <th>Nama</th>
+            <th>Status</th>
             <th>Aksi</th>
         </tr>
     </thead>
@@ -11,6 +12,7 @@
             <tr>
                 <td class="text-center">{{ $index + 1 }}</td>
                 <td>{{ $form->nama }}</td>
+                <td>{{ $form->status == '1' ? 'Aktif' : 'Tidak Aktif' }}</td>
                 <td class="align-middle">
                     <div class="btn-group">
 
@@ -31,6 +33,7 @@
             <tr>
                 <td class="text-center">-</td>
                 <td class="text-center">Tidak ada data ditemukan</td>
+                <td class="text-center">-</td>
                 <td class="text-center">-</td>
             </tr>
         @endforelse

@@ -249,52 +249,53 @@ function initDatatable (selector) {
 
 const loadSelectOptions = (selector, url, selectedValue = null) => {
   const selectElem = $(selector)
-
-  // Kosongkan dulu opsi yang ada
   selectElem.empty()
 
-  // Tambah opsi kosong dulu
+  // Placeholder awal
   const emptyOption = $('<option></option>')
     .attr('value', '')
     .text('-- Pilih Data --')
   selectElem.append(emptyOption)
 
   const successCallback = function (response) {
-    console.log(response)
     const responseList = response.data
-    console.log(responseList)
+
     responseList.forEach(row => {
-      const option = $('<option></option>')
-        .attr('value', row.id)
-        .text(
-          row.ibu && row.ibu.nik && row.ibu.nama && row.anak_ke
-            ? `${row.ibu.nik}, ${row.ibu.nama}, Kehamilan ke-${row.anak_ke}`
-            : row.ibu && row.ibu.nik
-            ? `${row.ibu.nik}${row.ibu.nama ? `, ${row.ibu.nama}` : ''}`
-            : row.nama ?? ''
-        )
+      const label =
+        row.ibu && row.ibu.nik && row.ibu.nama && row.anak_ke
+          ? `${row.ibu.nik}, ${row.ibu.nama}, Kehamilan ke-${row.anak_ke}`
+          : row.ibu && row.ibu.nik
+          ? `${row.ibu.nik}${row.ibu.nama ? `, ${row.ibu.nama}` : ''}`
+          : row.nama ?? ''
+
+      const option = $('<option></option>').attr('value', row.id).text(label)
       selectElem.append(option)
     })
 
-    // Set pilihan default kalau ada
     if (selectedValue !== null) {
-      selectElem.val(selectedValue)
+      selectElem.val(selectedValue).trigger('change')
     }
+
+    selectElem.select2({
+      theme: 'bootstrap4',
+      width: '100%',
+      placeholder: '-- Pilih Data --',
+      allowClear: true,
+      dropdownParent: selectElem.closest('.modal').length
+        ? selectElem.closest('.modal')
+        : $('body')
+    })
   }
 
-  const errorCallback = function (error) {
+  const errorCallback = error => {
     console.error(error)
   }
 
-  const data = {
-    mode: 'select'
-  }
-
-  ajaxCall(url, 'GET', data, successCallback, errorCallback)
+  ajaxCall(url, 'GET', { mode: 'select' }, successCallback, errorCallback)
 }
 
 const handleValidationErrors = (error, formId = null, fields = null) => {
-    console.log(error.responseJSON);
+  console.log(error.responseJSON)
   if (error.responseJSON.data && fields) {
     fields.forEach(field => {
       if (error.responseJSON.data[field]) {

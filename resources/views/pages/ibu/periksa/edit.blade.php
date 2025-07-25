@@ -67,7 +67,7 @@
     <script>
         let currentStep = 1;
         let totalSteps = 0;
-        const fieldsPerStep = 1;
+        const fieldsPerStep = 10;
 
         const selectedItems = @json($selectedItems ?? []); // array id form yang sudah dipilih → dari controller
         console.log(selectedItems);
@@ -114,7 +114,8 @@
             });
 
             function generateCheckbox(item) {
-                const isChecked = selectedItems.includes(item.id) ? 'checked' : '';
+                const isChecked = selectedItems.includes(String(item.id)) ? 'checked' : '';
+                console.log(isChecked ? 'true' : 'false');
                 return `
                 <div class="form-check mb-3 p-3 border rounded shadow-sm">
                     <input class="form-check-input custom-checkbox" type="checkbox" name="items[]" value="${item.id}" id="item-${item.id}" ${isChecked} style="transform: scale(1.5); margin-right: 10px;">
@@ -150,6 +151,23 @@
                     $('#submitBtn').hide();
                 }
             }
+
+            $('#editWizardForm').on('submit', function(e) {
+                e.preventDefault();
+                const formData = new FormData(this);
+
+                const url = $(this).attr('action')
+
+                const successCallback = function(response) {
+                    handleSuccess(response, null, "/ibu/periksa")
+                }
+
+                const errorCallback = function(error) {
+                    handleValidationErrors(error, '#editWizardForm')
+                }
+
+                ajaxCall(url, "POST", formData, successCallback, errorCallback);
+            })
         });
     </script>
 @endpush

@@ -36,6 +36,16 @@
     </script>
     <!-- /END GA -->
     @stack('styles')
+    <style>
+        .select2-container--bootstrap4 .select2-selection {
+            font-size: 1rem;
+            padding: .375rem .75rem;
+            height: auto;
+        }
+    </style>
+    <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
+    <link href="https://cdn.jsdelivr.net/npm/@ttskch/select2-bootstrap4-theme@1.6.2/dist/select2-bootstrap4.min.css"
+        rel="stylesheet">
     {{-- @laravelPWA --}}
 </head>
 
@@ -57,6 +67,7 @@
 
     <!-- General JS Scripts -->
     <script src="{{ asset('') }}assets/modules/jquery.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
     <script src="{{ asset('') }}assets/modules/popper.js"></script>
     <script src="{{ asset('') }}assets/modules/tooltip.js"></script>
     <script src="{{ asset('') }}assets/modules/bootstrap/js/bootstrap.min.js"></script>

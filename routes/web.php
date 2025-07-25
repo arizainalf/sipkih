@@ -11,7 +11,20 @@ Route::post('/register', [AuthController::class, 'registerPost'])->name('registe
 Route::middleware('role:admin')->group(function () {
     Route::prefix('admin')->group(function () {
 
+        Route::get('/storage-link', function () {
+            if (auth()->check()) {
+                Artisan::call('storage:link');
+                return 'Symlink berhasil dibuat.';
+            }
+            abort(403);
+        });
+        Route::get('/run-migrate', function () {
+            Artisan::call('migrate', ['--force' => true]);
+            return 'Migration done!';
+        });
+
         Route::get('/', [App\Http\Controllers\Admin\DashboardController::class, 'index'])->name('admin.dashboard');
+        Route::get('/ibu/table', [App\Http\Controllers\Admin\IbuController::class, 'table'])->name('admin.ibu.table');
         Route::resource('/ibu', App\Http\Controllers\Admin\IbuController::class)->names('admin.ibu');
         Route::get('/ibu/{id}/detail', [App\Http\Controllers\Admin\IbuController::class, 'detail'])->name('admin.ibu.detail');
 
@@ -96,12 +109,4 @@ Route::middleware('role:ibu')->group(function () {
         Route::get('/profile', [App\Http\Controllers\Ibu\IbuController::class, 'profile'])->name('ibu.profile');
         Route::put('/profile', [App\Http\Controllers\Ibu\IbuController::class, 'profile'])->name('ibu.profile.update');
     });
-});
-
-Route::get('/make-storage-link', function () {
-    if (auth()->check()) {
-        Artisan::call('storage:link');
-        return 'Symlink berhasil dibuat.';
-    }
-    abort(403);
 });

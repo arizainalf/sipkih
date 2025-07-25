@@ -103,10 +103,24 @@
                         <div class="invalid-feedback" id="erroralamat"></div>
                     </div>
 
-                    <div class="form-group mb-1">
+                    <div class="form-group mb-3">
                         <label>Nama Suami</label>
                         <input type="text" class="form-control" name="suami">
                         <div class="invalid-feedback" id="errorsuami"></div>
+                    </div>
+                    <div class="form-group mb-3">
+                        {{-- <label for="status_kehidupan">Status Kehidupan</label> --}}
+                        <div class="form-check">
+                            <input class="form-check-input" type="radio" name="status_kehidupan" id="status_hidup"
+                                value="1" checked>
+                            <label class="form-check-label" for="status_hidup">Hidup</label>
+                        </div>
+                        <div class="form-check">
+                            <input class="form-check-input" type="radio" name="status_kehidupan"
+                                id="status_meninggal" value="0">
+                            <label class="form-check-label" for="status_meninggal">Meninggal</label>
+                        </div>
+                        <div class="invalid-feedback" id="errorstatus_kehidupan"></div>
                     </div>
                 </div>
                 <div class="modal-footer">

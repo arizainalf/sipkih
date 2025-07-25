@@ -646,12 +646,14 @@ namespace App\Models {
      *
      * @property \Illuminate\Support\Carbon|null $updated_at
      * @property \Illuminate\Support\Carbon|null $created_at
+     * @property bool $status
      * @property string $nama
      * @property int $id
      * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\PeriksaKehamilan> $periksaKehamilans
      * @property-read int|null $periksaKehamilans_count
      * @method static \Illuminate\Database\Eloquent\Builder<FormPeriksaKehamilan>|FormPeriksaKehamilan whereId($value)
      * @method static \Illuminate\Database\Eloquent\Builder<FormPeriksaKehamilan>|FormPeriksaKehamilan whereNama($value)
+     * @method static \Illuminate\Database\Eloquent\Builder<FormPeriksaKehamilan>|FormPeriksaKehamilan whereStatus($value)
      * @method static \Illuminate\Database\Eloquent\Builder<FormPeriksaKehamilan>|FormPeriksaKehamilan whereCreatedAt($value)
      * @method static \Illuminate\Database\Eloquent\Builder<FormPeriksaKehamilan>|FormPeriksaKehamilan whereUpdatedAt($value)
      * @method static \Illuminate\Database\Eloquent\Builder<FormPeriksaKehamilan>|FormPeriksaKehamilan newModelQuery()
@@ -954,6 +956,7 @@ namespace App\Models {
      *
      * @property \Illuminate\Support\Carbon|null $updated_at
      * @property \Illuminate\Support\Carbon|null $created_at
+     * @property bool $status_kehidupan
      * @property string $suami
      * @property string $telepon
      * @property string $alamat
@@ -982,6 +985,7 @@ namespace App\Models {
      * @method static \Illuminate\Database\Eloquent\Builder<Ibu>|Ibu whereAlamat($value)
      * @method static \Illuminate\Database\Eloquent\Builder<Ibu>|Ibu whereTelepon($value)
      * @method static \Illuminate\Database\Eloquent\Builder<Ibu>|Ibu whereSuami($value)
+     * @method static \Illuminate\Database\Eloquent\Builder<Ibu>|Ibu whereStatusKehidupan($value)
      * @method static \Illuminate\Database\Eloquent\Builder<Ibu>|Ibu whereCreatedAt($value)
      * @method static \Illuminate\Database\Eloquent\Builder<Ibu>|Ibu whereUpdatedAt($value)
      * @method static \Illuminate\Database\Eloquent\Builder<Ibu>|Ibu newModelQuery()

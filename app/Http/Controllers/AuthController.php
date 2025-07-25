@@ -110,7 +110,7 @@ class AuthController extends Controller
             return $this->errorResponse(
                 null,
                 'Gagal mendaftar. Silakan coba lagi. ' . $e->getMessage(),
-                500// HTTP Internal Server Error
+                500
             );
         }
     }

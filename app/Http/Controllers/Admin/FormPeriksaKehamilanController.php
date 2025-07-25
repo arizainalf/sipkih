@@ -60,7 +60,8 @@ class FormPeriksaKehamilanController extends Controller
     public function store(Request $request)
     {
         $validatedData = $request->validate([
-            'nama' => ['required', 'string'],
+            'nama'   => ['required', 'string'],
+            'status' => ['required', 'boolean'],
         ]);
 
         DB::beginTransaction();
@@ -107,7 +108,8 @@ class FormPeriksaKehamilanController extends Controller
     public function update(Request $request, $id)
     {
         $validatedData = $request->validate([
-            'nama' => ['required', 'string'],
+            'nama'   => ['required', 'string'],
+            'status' => ['required', 'boolean'],
         ]);
 
         DB::beginTransaction();

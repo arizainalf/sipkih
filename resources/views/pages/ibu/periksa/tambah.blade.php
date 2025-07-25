@@ -88,7 +88,7 @@
     <script>
         let currentStep = 1;
         let totalSteps = 0;
-        const fieldsPerStep = 1;
+        const fieldsPerStep = 10;
 
         $(document).ready(function() {
             $.get('{{ route('ibu.periksa.form') }}', function(res) {
@@ -200,6 +200,8 @@
                 const errorCallback = function(error) {
                     handleValidationErrors(error, '#wizardForm')
                 }
+
+                console.log(data);
 
                 ajaxCall(url, "POST", data, successCallback, errorCallback);
             })

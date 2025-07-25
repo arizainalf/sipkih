@@ -15,6 +15,20 @@
                         <textarea name="nama" id="nama" class="form-control"></textarea>
                         <div class="invalid-feedback" id="errornama"></div>
                     </div>
+                    <div class="form-group mb-3">
+                        <label for="status">Status</label>
+                        <div class="form-check">
+                            <input class="form-check-input" type="radio" name="status" id="aktif" value="1"
+                                checked>
+                            <label class="form-check-label" for="aktif">Aktif</label>
+                        </div>
+                        <div class="form-check">
+                            <input class="form-check-input" type="radio" name="status" id="tidak_aktif"
+                                value="0">
+                            <label class="form-check-label" for="tidak_aktif">Tidak Aktif</label>
+                        </div>
+                        <div class="invalid-feedback" id="errorstatus"></div>
+                    </div>
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-dismiss="modal">Tutup</button>

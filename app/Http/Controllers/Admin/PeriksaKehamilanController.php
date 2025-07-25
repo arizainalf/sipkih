@@ -27,12 +27,12 @@ class PeriksaKehamilanController extends Controller
     }
     public function getForm()
     {
-        $data = FormPeriksaKehamilan::orderBy('id')->get();
+        $data = FormPeriksaKehamilan::orderBy('id')->where('status', true)->get();
         return $this->successResponse($data, 'Data berhasil ditemukan.');
     }
     public function getFormEdit()
     {
-        $data = PeriksaKehamilan::with('form_periksa_kehamilan')->orderBy('id')
+        $data = PeriksaKehamilan::with('form_periksa_kehamilan')->where('status', true)->orderBy('id')
             ->get();
 
         return $this->successResponse($data, 'Data berhasil ditemukan.');
@@ -40,7 +40,7 @@ class PeriksaKehamilanController extends Controller
     public function show(string $id)
     {
         $kehamilan     = Kehamilan::with('ibu')->where('id', $id)->first();
-        $selectedItems = PeriksaKehamilan::where('kehamilan_id', $id)->pluck('form_periksa_kemahilan_id')->toArray();
+        $selectedItems = PeriksaKehamilan::where('kehamilan_id', $id)->where('status', true)->pluck('form_periksa_kemahilan_id')->toArray();
 
         return view('pages.admin.periksa.edit', [
             'kehamilan'     => $kehamilan,
@@ -50,7 +50,7 @@ class PeriksaKehamilanController extends Controller
     public function edit(string $id)
     {
         $kehamilan     = Kehamilan::with('ibu')->where('id', $id)->first();
-        $selectedItems = PeriksaKehamilan::where('kehamilan_id', $id)->pluck('form_periksa_kemahilan_id')->toArray();
+        $selectedItems = PeriksaKehamilan::where('kehamilan_id', $id)->where('status', true)->pluck('form_periksa_kemahilan_id')->toArray();
 
         return view('pages.admin.periksa.edit', [
             'kehamilan'     => $kehamilan,

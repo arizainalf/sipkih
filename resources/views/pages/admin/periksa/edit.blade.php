@@ -32,7 +32,9 @@
         <div class="section-body">
             <div class="card">
                 <div class="card-header">
-                    <h4 class="text-primary">Form Edit Pemeriksaan</h4>
+                    <h4 class="text-primary">Form Edit Pemeriksaan, {{ $kehamilan->ibu->nama }} kehamilan ke
+                        {{ $kehamilan->anak_ke }}</h4>
+                    <h4 class="text-primary"></h4>
                 </div>
 
                 <div class="card-body">
@@ -48,8 +50,8 @@
                             <div>
                                 <button type="button" class="btn btn-primary" id="nextBtn"
                                     style="display:none;">Next</button>
-                                <button type="submit" class="btn btn-success" id="submitBtn" style="display:none;">Simpan
-                                    Perubahan</button>
+                                {{-- <button type="submit" class="btn btn-success" id="submitBtn" style="display:none;">Simpan
+                                    Perubahan</button> --}}
                             </div>
                         </div>
 
@@ -73,7 +75,7 @@
         console.log(selectedItems);
 
         $(document).ready(function() {
-            $.get('{{ route('admin.periksa.form.edit' ) }}', function(res) {
+            $.get('{{ route('admin.periksa.form.edit') }}', function(res) {
                 console.log(res)
                 const items = res.data;
                 const itemCount = items.length;
@@ -114,7 +116,7 @@
             });
 
             function generateCheckbox(item) {
-                const isChecked = selectedItems.includes(item.id) ? 'checked' : '';
+                const isChecked = selectedItems.includes(String(item.id)) ? 'checked' : '';
                 return `
                 <div class="form-check mb-3 p-3 border rounded shadow-sm">
                     <input class="form-check-input custom-checkbox" disabled type="checkbox" name="items[]" value="${item.id}" id="item-${item.id}" ${isChecked} style="transform: scale(1.5); margin-right: 10px;">
