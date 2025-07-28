@@ -397,88 +397,88 @@ class KehamilanController extends Controller
     }
 
     // KunjunganNifasController.php
-   public function updateKunjunganNifas(Request $request, $id)
-{
-    $validator = Validator::make($request->all(), [
-        'persalinan_id' => 'required|exists:persalinans,id',
+    public function updateKunjunganNifas(Request $request, $id)
+    {
+        $validator = Validator::make($request->all(), [
+            'persalinan_id'          => 'required|exists:persalinans,id',
 
-        // KF1 fields
-        'tanggal_kunjungan_kf_1' => 'nullable|date',
-        'faskes_kf_1' => 'nullable|string|max:255',
-        'masalah_kf_1' => 'nullable|string',
-        'tindakan_kf_1' => 'nullable|string',
+            // KF1 fields
+            'tanggal_kunjungan_kf_1' => 'nullable|date',
+            'faskes_kf_1'            => 'nullable|string|max:255',
+            'masalah_kf_1'           => 'nullable|string',
+            'tindakan_kf_1'          => 'nullable|string',
 
-        // KF2 fields
-        'tanggal_kunjungan_kf_2' => 'nullable|date',
-        'faskes_kf_2' => 'nullable|string|max:255',
-        'masalah_kf_2' => 'nullable|string',
-        'tindakan_kf_2' => 'nullable|string',
+            // KF2 fields
+            'tanggal_kunjungan_kf_2' => 'nullable|date',
+            'faskes_kf_2'            => 'nullable|string|max:255',
+            'masalah_kf_2'           => 'nullable|string',
+            'tindakan_kf_2'          => 'nullable|string',
 
-        // KF3 fields
-        'tanggal_kunjungan_kf_3' => 'nullable|date',
-        'faskes_kf_3' => 'nullable|string|max:255',
-        'masalah_kf_3' => 'nullable|string',
-        'tindakan_kf_3' => 'nullable|string',
+            // KF3 fields
+            'tanggal_kunjungan_kf_3' => 'nullable|date',
+            'faskes_kf_3'            => 'nullable|string|max:255',
+            'masalah_kf_3'           => 'nullable|string',
+            'tindakan_kf_3'          => 'nullable|string',
 
-        // KF4 fields
-        'tanggal_kunjungan_kf_4' => 'nullable|date',
-        'faskes_kf_4' => 'nullable|string|max:255',
-        'masalah_kf_4' => 'nullable|string',
-        'tindakan_kf_4' => 'nullable|string',
-
-    ]);
-
-    if ($validator->fails()) {
-        return response()->json(['errors' => $validator->errors()], 422);
-    }
-
-    try {
-        $kunjungan = KunjunganNifas::findOrFail($id);
-
-        // Update data for each visit type
-        $kunjungan->update([
-            'persalinan_id' => $request->persalinan_id,
-
-            // KF1 data
-            'tanggal_kunjungan_kf_1' => $request->tanggal_kunjungan_kf_1,
-            'faskes_kf_1' => $request->faskes_kf_1,
-            'masalah_kf_1' => $request->masalah_kf_1,
-            'tindakan_kf_1' => $request->tindakan_kf_1,
-
-            // KF2 data
-            'tanggal_kunjungan_kf_2' => $request->tanggal_kunjungan_kf_2,
-            'faskes_kf_2' => $request->faskes_kf_2,
-            'masalah_kf_2' => $request->masalah_kf_2,
-            'tindakan_kf_2' => $request->tindakan_kf_2,
-
-            // KF3 data
-            'tanggal_kunjungan_kf_3' => $request->tanggal_kunjungan_kf_3,
-            'faskes_kf_3' => $request->faskes_kf_3,
-            'masalah_kf_3' => $request->masalah_kf_3,
-            'tindakan_kf_3' => $request->tindakan_kf_3,
-
-            // KF4 data
-            'tanggal_kunjungan_kf_4' => $request->tanggal_kunjungan_kf_4,
-            'faskes_kf_4' => $request->faskes_kf_4,
-            'masalah_kf_4' => $request->masalah_kf_4,
-            'tindakan_kf_4' => $request->tindakan_kf_4,
+            // KF4 fields
+            'tanggal_kunjungan_kf_4' => 'nullable|date',
+            'faskes_kf_4'            => 'nullable|string|max:255',
+            'masalah_kf_4'           => 'nullable|string',
+            'tindakan_kf_4'          => 'nullable|string',
 
         ]);
 
-        return response()->json([
-            'success' => true,
-            'message' => 'Data kunjungan nifas berhasil diperbarui',
-            'data'    => $kunjungan,
-        ]);
+        if ($validator->fails()) {
+            return response()->json(['errors' => $validator->errors()], 422);
+        }
 
-    } catch (\Exception $e) {
-        return response()->json([
-            'success' => false,
-            'message' => 'Gagal memperbarui data kunjungan nifas',
-            'error'   => $e->getMessage(),
-        ], 500);
+        try {
+            $kunjungan = KunjunganNifas::findOrFail($id);
+
+            // Update data for each visit type
+            $kunjungan->update([
+                'persalinan_id'          => $request->persalinan_id,
+
+                // KF1 data
+                'tanggal_kunjungan_kf_1' => $request->tanggal_kunjungan_kf_1,
+                'faskes_kf_1'            => $request->faskes_kf_1,
+                'masalah_kf_1'           => $request->masalah_kf_1,
+                'tindakan_kf_1'          => $request->tindakan_kf_1,
+
+                // KF2 data
+                'tanggal_kunjungan_kf_2' => $request->tanggal_kunjungan_kf_2,
+                'faskes_kf_2'            => $request->faskes_kf_2,
+                'masalah_kf_2'           => $request->masalah_kf_2,
+                'tindakan_kf_2'          => $request->tindakan_kf_2,
+
+                // KF3 data
+                'tanggal_kunjungan_kf_3' => $request->tanggal_kunjungan_kf_3,
+                'faskes_kf_3'            => $request->faskes_kf_3,
+                'masalah_kf_3'           => $request->masalah_kf_3,
+                'tindakan_kf_3'          => $request->tindakan_kf_3,
+
+                // KF4 data
+                'tanggal_kunjungan_kf_4' => $request->tanggal_kunjungan_kf_4,
+                'faskes_kf_4'            => $request->faskes_kf_4,
+                'masalah_kf_4'           => $request->masalah_kf_4,
+                'tindakan_kf_4'          => $request->tindakan_kf_4,
+
+            ]);
+
+            return response()->json([
+                'success' => true,
+                'message' => 'Data kunjungan nifas berhasil diperbarui',
+                'data'    => $kunjungan,
+            ]);
+
+        } catch (\Exception $e) {
+            return response()->json([
+                'success' => false,
+                'message' => 'Gagal memperbarui data kunjungan nifas',
+                'error'   => $e->getMessage(),
+            ], 500);
+        }
     }
-}
 
     // KesimpulanNifasController.php
     public function updateKesimpulanNifas(Request $request, $id)
