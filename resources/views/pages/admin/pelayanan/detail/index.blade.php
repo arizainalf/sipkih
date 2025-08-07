@@ -23,16 +23,18 @@
                     <div class="card">
                         <div class="card-header">
                             <h4 class="text-primary">Detail Data Pelayanan</h4>
-                            <div class="ml-auto">
-                                <button data-toggle="modal" data-target="#modal-tambah" type="button"
-                                    data-id="{{ $pelayanan->id }}" class="btn btn-warning btn-icon edit-button">
-                                    <i class="fas fa-edit"></i> Edit
-                                </button>
-                                <button class="btn btn-danger btn-icon"
-                                    onclick="confirmDelete('{{ route('admin.pelayanan.destroy', $pelayanan->id) }}')">
-                                    <i class="fas fa-trash"></i> Hapus
-                                </button>
-                            </div>
+                            @if (auth()->user()->role == 'admin')
+                                <div class="ml-auto">
+                                    <button data-toggle="modal" data-target="#modal-tambah" type="button"
+                                        data-id="{{ $pelayanan->id }}" class="btn btn-warning btn-icon edit-button">
+                                        <i class="fas fa-edit"></i> Edit
+                                    </button>
+                                    <button class="btn btn-danger btn-icon"
+                                        onclick="confirmDelete('{{ route('admin.pelayanan.destroy', $pelayanan->id) }}')">
+                                        <i class="fas fa-trash"></i> Hapus
+                                    </button>
+                                </div>
+                            @endif
                         </div>
                         <div class="card-body">
                             <div class="row">
@@ -146,7 +148,7 @@
                                             </p>
                                         </div>
                                     </div>
-                                    
+
                                     <div class="form-group row">
                                         <label class="col-sm-4 col-form-label font-weight-bold">Status Imunisasi dan
                                             Tetanus</label>
@@ -187,11 +189,13 @@
                             </div>
                         </div>
 
-                        <div class="card-footer text-right">
-                            <a href="{{ route('admin.pelayanan.index') }}" class="btn btn-secondary">
-                                <i class="fas fa-arrow-left"></i> Kembali
-                            </a>
-                        </div>
+                        @auth('admin')
+                            <div class="card-footer text-right">
+                                <a href="{{ route('admin.pelayanan.index') }}" class="btn btn-secondary">
+                                    <i class="fas fa-arrow-left"></i> Kembali
+                                </a>
+                            </div>
+                        @endauth
                     </div>
                 </div>
             </div>

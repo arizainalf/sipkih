@@ -23,7 +23,10 @@ Route::middleware('role:admin')->group(function () {
             return 'Migration done!';
         });
 
+        Route::get('/kehamilan/{id}/export-pdf', [App\Http\Controllers\Admin\KehamilanController::class, 'exportPdf'])->name('kehamilan.exportPdf');
+
         Route::get('/', [App\Http\Controllers\Admin\DashboardController::class, 'index'])->name('admin.dashboard');
+        Route::post('/export-pdf', [App\Http\Controllers\Admin\DashboardController::class, 'exportPdf'])->name('admin.dashboard.exportPdf');
         Route::get('/ibu/table', [App\Http\Controllers\Admin\IbuController::class, 'table'])->name('admin.ibu.table');
         Route::resource('/ibu', App\Http\Controllers\Admin\IbuController::class)->names('admin.ibu');
         Route::get('/ibu/{id}/detail', [App\Http\Controllers\Admin\IbuController::class, 'detail'])->name('admin.ibu.detail');
@@ -55,6 +58,7 @@ Route::middleware('role:admin')->group(function () {
         Route::get('/periksa/form', [App\Http\Controllers\Admin\PeriksaKehamilanController::class, 'getFormEdit'])->name('admin.periksa.form');
 
         Route::resource('/nifas', App\Http\Controllers\Admin\NifasController::class)->names('admin.nifas');
+
         Route::get('/nifas/{id}/detail', [App\Http\Controllers\Admin\NifasController::class, 'detail'])->name('admin.nifas.detail');
 
         Route::resource('/rujukan', App\Http\Controllers\Admin\RujukanController::class)->names('admin.rujukan');
@@ -83,12 +87,17 @@ Route::middleware('role:ibu')->group(function () {
     Route::prefix('ibu')->group(function () {
         Route::get('/', [App\Http\Controllers\Ibu\DashboardController::class, 'index'])->name('ibu.dashboard');
 
+        Route::get('/kehamilan/{id}/export-pdf', [App\Http\Controllers\Admin\KehamilanController::class, 'exportPdf'])->name('ibu.kehamilan.exportPdf');
+
         Route::get('/table/{id}/kehamilan', [App\Http\Controllers\Ibu\KehamilanController::class, 'table'])->name('ibu.kehamilan.table');
         Route::get('/table/{id}/nifas', [App\Http\Controllers\Ibu\NifasController::class, 'table'])->name('ibu.nifas.table');
         Route::get('/table/{id}/pelayanan', [App\Http\Controllers\Ibu\PelayananController::class, 'table'])->name('ibu.pelayanan.table');
 
         Route::get('/kehamilan', [App\Http\Controllers\Ibu\KehamilanController::class, 'index'])->name('ibu.kehamilan.index');
         Route::get('/kehamilan/{id}/detail', [App\Http\Controllers\Ibu\KehamilanController::class, 'detail'])->name('ibu.kehamilan.detail');
+
+        Route::get('/pelayanan/{id}/detail', [App\Http\Controllers\Ibu\PelayananController::class, 'detail'])->name('ibu.pelayanan.detail');
+        Route::get('/nifas/{id}/detail', [App\Http\Controllers\Ibu\NifasController::class, 'detail'])->name('ibu.nifas.detail');
 
         Route::get('/periksa', [App\Http\Controllers\Ibu\PeriksaKehamilanController::class, 'index'])->name('ibu.periksa.index');
         Route::get('/table/periksa', [App\Http\Controllers\Ibu\PeriksaKehamilanController::class, 'table'])->name('ibu.periksa.table');

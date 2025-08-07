@@ -45,20 +45,10 @@
                 <td>{{ $pelayanan->usg }}</td>
                 <td class="align-middle">
                     <div class="btn-group">
-                        <a href="{{ route('admin.pelayanan.detail', $pelayanan->id) }}" class="btn btn-info"
+                        <a href="{{ route('ibu.pelayanan.detail', $pelayanan->id) }}" class="btn btn-info"
                             data-toggle="tooltip" title="Detail">
                             <i class="fas fa-eye"></i>
                         </a>
-                        <button data-toggle="modal" data-target="#modal-tambah-pelayanan" type="button"
-                            class="btn btn-warning edit-button-pelayanan" data-id="{{ $pelayanan->id }}" data-toggle="tooltip"
-                            title="Edit">
-                            <i class="fas fa-edit"></i>
-                        </button>
-                        <button
-                            onclick="confirmDelete('{{ route('admin.pelayanan.destroy', $pelayanan->id) }}','.table-responsive-pelayanan', '{{ route('admin.pelayanan.index') }}', '#tabel-pelayanan')"
-                            class="btn btn-danger delete-button-pelayanan" data-toggle="tooltip" title="Hapus">
-                            <i class="fas fa-trash"></i>
-                        </button>
                     </div>
                 </td>
             </tr>

@@ -15,6 +15,29 @@
  @section('content')
      <section class="section">
          <div class="row">
+             <div class="col-12">
+                 <div class="card">
+                     <div class="card-body">
+                         <h4 class="card-title text-primary">Export Pdf</h4>
+                         <form id="export-pdf" action="{{ route('admin.dashboard.exportPdf') }}" method="post">
+                             @csrf
+                             <div class="form-row d-flex align-items-end">
+                                 <div class="form-group col-md-5">
+                                     <label for="inputEmail4">Tanggal Mulai</label>
+                                     <input type="date" class="form-control" name="tanggal_mulai">
+                                 </div>
+                                 <div class="form-group col-md-5">
+                                     <label for="inputPassword4">Tanggal Akhir</label>
+                                     <input type="date" class="form-control" name="tanggal_akhir">
+                                 </div>
+                                 <div class="form-group col-md-2 d-flex align-items-end">
+                                     <button type="submit" class="btn btn-danger btn-lg btn-block">Export</button>
+                                 </div>
+                             </div>
+                         </form>
+                     </div>
+                 </div>
+             </div>
              <div class="col-lg-6 col-md-4 col-sm-12">
                  <div class="card card-statistic-2">
                      <div class="card-icon shadow-primary bg-primary">

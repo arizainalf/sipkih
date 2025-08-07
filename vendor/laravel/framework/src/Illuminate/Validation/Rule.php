@@ -250,7 +250,7 @@ class Rule
     /**
      * Get an "any of" rule builder instance.
      *
-     * @param  array
+     * @param  array  $rules
      * @return \Illuminate\Validation\Rules\AnyOf
      *
      * @throws \InvalidArgumentException
@@ -258,6 +258,21 @@ class Rule
     public static function anyOf($rules)
     {
         return new AnyOf($rules);
+    }
+
+    /**
+     * Get a contains rule builder instance.
+     *
+     * @param  \Illuminate\Contracts\Support\Arrayable|\BackedEnum|\UnitEnum|array|string  $values
+     * @return \Illuminate\Validation\Rules\Contains
+     */
+    public static function contains($values)
+    {
+        if ($values instanceof Arrayable) {
+            $values = $values->toArray();
+        }
+
+        return new Rules\Contains(is_array($values) ? $values : func_get_args());
     }
 
     /**

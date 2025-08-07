@@ -22,4 +22,10 @@ class PelayananController extends Controller
             return $this->successResponse($data, 'Data berhasil ditemukan.');
         }
     }
+
+        public function detail(Request $request, string $id)
+    {
+        $pelayanan = Pelayanan::with('kehamilan.ibu')->where('id', $id)->first();
+        return view('pages.admin.pelayanan.detail.index', compact('pelayanan'));
+    }
 }

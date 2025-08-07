@@ -23,15 +23,18 @@
                     <div class="card">
                         <div class="card-header">
                             <h4 class="text-primary">Detail Data Masa Nifas</h4>
-                            <div class="ml-auto">
-                                <button data-id="{{ $nifas->id }}" class="btn btn-warning btn-icon edit-button" data-toggle="modal" data-target="#modal-tambah">
-                                    <i class="fas fa-edit"></i> Edit
-                                </button>
-                                <button class="btn btn-danger btn-icon"
-                                    onclick="confirmDelete('{{ route('admin.nifas.destroy', $nifas->id) }}')">
-                                    <i class="fas fa-trash"></i> Hapus
-                                </button>
-                            </div>
+                            @if (auth()->user()->role == 'admin')
+                                <div class="ml-auto">
+                                    <button data-id="{{ $nifas->id }}" class="btn btn-warning btn-icon edit-button"
+                                        data-toggle="modal" data-target="#modal-tambah">
+                                        <i class="fas fa-edit"></i> Edit
+                                    </button>
+                                    <button class="btn btn-danger btn-icon"
+                                        onclick="confirmDelete('{{ route('admin.nifas.destroy', $nifas->id) }}')">
+                                        <i class="fas fa-trash"></i> Hapus
+                                    </button>
+                                </div>
+                            @endif
                         </div>
                         <div class="card-body">
                             <div class="row">
@@ -41,7 +44,9 @@
                                         <label class="col-sm-4 col-form-label font-weight-bold">Nama Ibu</label>
                                         <div class="col-sm-8">
                                             <p class="form-control-plaintext">
-                                                {{ $nifas->kehamilan->ibu->nik ?? '-' }}, {{ $nifas->kehamilan->ibu->nama ?? '-' }} Kehamilan Ke {{ $nifas->kehamilan->anak_ke ?? '-' }}
+                                                {{ $nifas->kehamilan->ibu->nik ?? '-' }},
+                                                {{ $nifas->kehamilan->ibu->nama ?? '-' }} Kehamilan Ke
+                                                {{ $nifas->kehamilan->anak_ke ?? '-' }}
                                             </p>
                                         </div>
                                     </div>
@@ -179,11 +184,13 @@
                             </div>
                         </div>
 
-                        <div class="card-footer text-right">
-                            <a href="{{ route('admin.nifas.index') }}" class="btn btn-secondary">
-                                <i class="fas fa-arrow-left"></i> Kembali ke Daftar
-                            </a>
-                        </div>
+                        @auth('admin')
+                            <div class="card-footer text-right">
+                                <a href="{{ route('admin.nifas.index') }}" class="btn btn-secondary">
+                                    <i class="fas fa-arrow-left"></i> Kembali ke Daftar
+                                </a>
+                            </div>
+                        @endauth
                     </div>
                 </div>
             </div>

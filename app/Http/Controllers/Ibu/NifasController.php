@@ -21,4 +21,10 @@ class NifasController extends Controller
             return $this->successResponse($data, 'Data berhasil ditemukan.');
         }
     }
+
+    public function detail(Request $request, string $id)
+    {
+        $nifas = Nifas::with('kehamilan.ibu')->where('id', $id)->first();
+        return view('pages.admin.nifas.detail.index', compact('nifas'));
+    }
 }

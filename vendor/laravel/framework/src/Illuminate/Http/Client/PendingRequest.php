@@ -215,6 +215,13 @@ class PendingRequest
     ];
 
     /**
+     * The length at which request exceptions will be truncated.
+     *
+     * @var int<1, max>|false|null
+     */
+    protected $truncateExceptionsAt = null;
+
+    /**
      * Create a new HTTP Client instance.
      *
      * @param  \Illuminate\Http\Client\Factory|null  $factory
@@ -935,15 +942,20 @@ class PendingRequest
                         }
                     }
                 });
-            } catch (ConnectException $e) {
-                $exception = new ConnectionException($e->getMessage(), 0, $e);
-                $request = new Request($e->getRequest());
+            } catch (TransferException $e) {
+                if ($e instanceof ConnectException) {
+                    $this->marshalConnectionException($e);
+                }
 
-                $this->factory?->recordRequestResponsePair($request, null);
+                if ($e instanceof RequestException && ! $e->hasResponse()) {
+                    $this->marshalRequestExceptionWithoutResponse($e);
+                }
 
-                $this->dispatchConnectionFailedEvent($request, $exception);
+                if ($e instanceof RequestException && $e->hasResponse()) {
+                    $this->marshalRequestExceptionWithResponse($e);
+                }
 
-                throw $exception;
+                throw $e;
             }
         }, $this->retryDelay ?? 100, function ($exception) use (&$shouldRetry) {
             $result = $shouldRetry ?? ($this->retryWhenCallback ? call_user_func($this->retryWhenCallback, $exception, $this, $this->request?->toPsrRequest()->getMethod()) : true);
@@ -1009,7 +1021,21 @@ class PendingRequest
     protected function parseMultipartBodyFormat(array $data)
     {
         return (new Collection($data))
-            ->map(fn ($value, $key) => is_array($value) ? $value : ['name' => $key, 'contents' => $value])
+            ->flatMap(function ($value, $key) {
+                if (is_array($value)) {
+                    // If the array has 'name' and 'contents' keys, it's already formatted for multipart...
+                    if (isset($value['name']) && isset($value['contents'])) {
+                        return [$value];
+                    }
+
+                    // Otherwise, treat it as multiple values for the same field name...
+                    return (new Collection($value))->map(function ($item) use ($key) {
+                        return ['name' => $key.'[]', 'contents' => $item];
+                    });
+                }
+
+                return [['name' => $key, 'contents' => $value]];
+            })
             ->values()
             ->all();
     }
@@ -1424,7 +1450,15 @@ class PendingRequest
      */
     protected function newResponse($response)
     {
-        return new Response($response);
+        return tap(new Response($response), function (Response $laravelResponse) {
+            if ($this->truncateExceptionsAt === null) {
+                return;
+            }
+
+            $this->truncateExceptionsAt === false
+                ? $laravelResponse->dontTruncateExceptions()
+                : $laravelResponse->truncateExceptionsAt($this->truncateExceptionsAt);
+        });
     }
 
     /**
@@ -1515,6 +1549,91 @@ class PendingRequest
         if ($dispatcher = $this->factory?->getDispatcher()) {
             $dispatcher->dispatch(new ConnectionFailed($request, $exception));
         }
+    }
+
+    /**
+     * Indicate that request exceptions should be truncated to the given length.
+     *
+     * @param  int<1, max>  $length
+     * @return $this
+     */
+    public function truncateExceptionsAt(int $length)
+    {
+        $this->truncateExceptionsAt = $length;
+
+        return $this;
+    }
+
+    /**
+     * Indicate that request exceptions should not be truncated.
+     *
+     * @return $this
+     */
+    public function dontTruncateExceptions()
+    {
+        $this->truncateExceptionsAt = false;
+
+        return $this;
+    }
+
+    /**
+     * Handle the given connection exception.
+     *
+     * @param  \GuzzleHttp\Exception\ConnectException  $e
+     * @return void
+     */
+    protected function marshalConnectionException(ConnectException $e)
+    {
+        $exception = new ConnectionException($e->getMessage(), 0, $e);
+
+        $request = new Request($e->getRequest());
+
+        $this->factory?->recordRequestResponsePair(
+            $request, null
+        );
+
+        $this->dispatchConnectionFailedEvent($request, $exception);
+
+        throw $exception;
+    }
+
+    /**
+     * Handle the given request exception.
+     *
+     * @param  \GuzzleHttp\Exception\RequestException  $e
+     * @return void
+     */
+    protected function marshalRequestExceptionWithoutResponse(RequestException $e)
+    {
+        $exception = new ConnectionException($e->getMessage(), 0, $e);
+
+        $request = new Request($e->getRequest());
+
+        $this->factory?->recordRequestResponsePair(
+            $request, null
+        );
+
+        $this->dispatchConnectionFailedEvent($request, $exception);
+
+        throw $exception;
+    }
+
+    /**
+     * Handle the given request exception.
+     *
+     * @param  \GuzzleHttp\Exception\RequestException  $e
+     * @return void
+     */
+    protected function marshalRequestExceptionWithResponse(RequestException $e)
+    {
+        $response = $this->populateResponse($this->newResponse($e->getResponse()));
+
+        $this->factory?->recordRequestResponsePair(
+            new Request($e->getRequest()),
+            $response
+        );
+
+        throw $response->toException() ?? new ConnectionException($e->getMessage(), 0, $e);
     }
 
     /**

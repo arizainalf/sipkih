@@ -24,7 +24,7 @@
                   </li>
               @endauth
               <li
-                  class="{{ request()->is(activeGuard() . '/kehamilan') || request()->is('admin/kehamilan/*') ? 'active' : '' }}">
+                  class="{{ request()->is(activeGuard() . '/kehamilan') || request()->is(activeGuard() . '/kehamilan/*') ? 'active' : '' }}">
                   <a class="nav-link" href="{{ route(activeGuard() . '.kehamilan.index') }}"><i
                           class="fas fa-child"></i>
                       <span>Kehamilan</span></a>

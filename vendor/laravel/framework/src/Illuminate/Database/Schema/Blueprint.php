@@ -179,9 +179,8 @@ class Blueprint
      */
     protected function commandsNamed(array $names)
     {
-        return (new Collection($this->commands))->filter(function ($command) use ($names) {
-            return in_array($command->name, $names);
-        });
+        return (new Collection($this->commands))
+            ->filter(fn ($command) => in_array($command->name, $names));
     }
 
     /**
@@ -316,9 +315,8 @@ class Blueprint
      */
     public function creating()
     {
-        return (new Collection($this->commands))->contains(function ($command) {
-            return ! $command instanceof ColumnDefinition && $command->name === 'create';
-        });
+        return (new Collection($this->commands))
+            ->contains(fn ($command) => ! $command instanceof ColumnDefinition && $command->name === 'create');
     }
 
     /**
@@ -686,11 +684,12 @@ class Blueprint
      *
      * @param  string|array  $columns
      * @param  string|null  $name
+     * @param  string|null  $operatorClass
      * @return \Illuminate\Database\Schema\IndexDefinition
      */
-    public function spatialIndex($columns, $name = null)
+    public function spatialIndex($columns, $name = null, $operatorClass = null)
     {
-        return $this->indexCommand('spatialIndex', $columns, $name);
+        return $this->indexCommand('spatialIndex', $columns, $name, null, $operatorClass);
     }
 
     /**
@@ -1239,13 +1238,14 @@ class Blueprint
      * Add nullable creation and update timestamps to the table.
      *
      * @param  int|null  $precision
-     * @return void
+     * @return \Illuminate\Support\Collection<int, \Illuminate\Database\Schema\ColumnDefinition>
      */
     public function timestamps($precision = null)
     {
-        $this->timestamp('created_at', $precision)->nullable();
-
-        $this->timestamp('updated_at', $precision)->nullable();
+        return new Collection([
+            $this->timestamp('created_at', $precision)->nullable(),
+            $this->timestamp('updated_at', $precision)->nullable(),
+        ]);
     }
 
     /**
@@ -1254,37 +1254,39 @@ class Blueprint
      * Alias for self::timestamps().
      *
      * @param  int|null  $precision
-     * @return void
+     * @return \Illuminate\Support\Collection<int, \Illuminate\Database\Schema\ColumnDefinition>
      */
     public function nullableTimestamps($precision = null)
     {
-        $this->timestamps($precision);
+        return $this->timestamps($precision);
     }
 
     /**
      * Add creation and update timestampTz columns to the table.
      *
      * @param  int|null  $precision
-     * @return void
+     * @return \Illuminate\Support\Collection<int, \Illuminate\Database\Schema\ColumnDefinition>
      */
     public function timestampsTz($precision = null)
     {
-        $this->timestampTz('created_at', $precision)->nullable();
-
-        $this->timestampTz('updated_at', $precision)->nullable();
+        return new Collection([
+            $this->timestampTz('created_at', $precision)->nullable(),
+            $this->timestampTz('updated_at', $precision)->nullable(),
+        ]);
     }
 
     /**
      * Add creation and update datetime columns to the table.
      *
      * @param  int|null  $precision
-     * @return void
+     * @return \Illuminate\Support\Collection<int, \Illuminate\Database\Schema\ColumnDefinition>
      */
     public function datetimes($precision = null)
     {
-        $this->datetime('created_at', $precision)->nullable();
-
-        $this->datetime('updated_at', $precision)->nullable();
+        return new Collection([
+            $this->datetime('created_at', $precision)->nullable(),
+            $this->datetime('updated_at', $precision)->nullable(),
+        ]);
     }
 
     /**
@@ -1640,15 +1642,16 @@ class Blueprint
     }
 
     /**
-     * Add a new index command to the blueprint.
+     * Create a new index command on the blueprint.
      *
      * @param  string  $type
      * @param  string|array  $columns
      * @param  string  $index
      * @param  string|null  $algorithm
+     * @param  string|null  $operatorClass
      * @return \Illuminate\Support\Fluent
      */
-    protected function indexCommand($type, $columns, $index, $algorithm = null)
+    protected function indexCommand($type, $columns, $index, $algorithm = null, $operatorClass = null)
     {
         $columns = (array) $columns;
 
@@ -1658,7 +1661,7 @@ class Blueprint
         $index = $index ?: $this->createIndexName($type, $columns);
 
         return $this->addCommand(
-            $type, compact('index', 'columns', 'algorithm')
+            $type, compact('index', 'columns', 'algorithm', 'operatorClass')
         );
     }
 

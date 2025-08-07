@@ -17,7 +17,8 @@
 @section('content')
     <section class="section">
         <div class="section-header">
-            <h1>@yield('title')</h1>
+            <h1>@yield('title') - Anak Ke {{ $kehamilan->anak_ke }} Ibu {{ $kehamilan->ibu->nama }} -
+                {{ $kehamilan->ibu->nik }}</h1>
             <div class="section-header-breadcrumb">
                 <div class="breadcrumb-item active"><a href="{{ route('admin.dashboard') }}">Dashboard</a></div>
                 <div class="breadcrumb-item">@yield('title')</div>
@@ -28,8 +29,11 @@
             <div class="row">
                 <div class="col-lg-12">
                     <div class="card">
-                        <div class="card-header">
+                        <div class="card-header d-flex justify-content-between">
                             <h4>Grafik Kehamilan</h4>
+                            <a href="{{ route('kehamilan.exportPdf', $kehamilan->id) }}" class="btn btn-danger">
+                                <i class="fas fa-file-pdf"></i> Export PDF
+                            </a>
                         </div>
                         <div class="card-body">
                             <canvas id="kehamilanChart" height="158"></canvas>

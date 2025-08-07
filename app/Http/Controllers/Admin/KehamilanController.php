@@ -11,6 +11,7 @@ use App\Models\Pelayanan;
 use App\Models\Persalinan;
 use App\Models\Ttd;
 use App\Traits\JsonResponder;
+use Barryvdh\DomPDF\Facade\Pdf;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Validator;
@@ -563,4 +564,132 @@ class KehamilanController extends Controller
         }
     }
 
+    public function exportPdf(Request $request, $id)
+    {
+        // Ambil data
+        $pelayanans = Pelayanan::where('kehamilan_id', $id)
+            ->orderBy('trismester')
+            ->get(['trismester', 'bb', 'tinggi_rahim', 'lingkar_lengan_atas']);
+
+        $nifas = Nifas::where('kehamilan_id', $id)->get();
+
+        $labels = $pelayanans->pluck('trismester')->map(function ($item) {
+            return 'Tri-' . $item;
+        })->toArray();
+
+        $kehamilan = Kehamilan::with('ibu', 'persalinan.bayi', 'persalinan.kesimpulanNifas', 'persalinan.kunjunganNifas')->where('id', $request->id)->first();
+
+        // Generate chart gambar
+        $chartPath = $this->generateCombinedChart(
+            $pelayanans->pluck('bb')->toArray(),
+            $pelayanans->pluck('tinggi_rahim')->toArray(),
+            $pelayanans->pluck('lingkar_lengan_atas')->toArray(),
+            $labels
+        );
+
+        $pelayanan = Pelayanan::where('kehamilan_id', $id)->get();
+
+        // PDF
+        $pdf = Pdf::loadView('pages.admin.kehamilan.detail.pdf', [
+            'kehamilan'  => $kehamilan,
+            'chartPath'  => $chartPath,
+            'labels'     => $labels,
+            'data'       => $pelayanans,
+            'nifas'      => $nifas,
+            'pelayanans' => $pelayanan,
+        ]);
+
+        $pdf->setPaper('legal', 'landscape');
+
+        return $pdf->download('laporan-kehamilan.pdf');
+    }
+
+    private function generateCombinedChart($bb, $tinggiRahim, $lingkarLengan, $labels)
+    {
+        $width  = 800;
+        $height = 400;
+        $image  = imagecreatetruecolor($width, $height);
+
+        // Warna
+        $white = imagecolorallocate($image, 255, 255, 255);
+        $black = imagecolorallocate($image, 0, 0, 0);
+        $red   = imagecolorallocate($image, 255, 0, 0);
+        $blue  = imagecolorallocate($image, 0, 0, 255);
+        $green = imagecolorallocate($image, 0, 128, 0);
+
+        imagefill($image, 0, 0, $white);
+
+                                                                                // Gambar sumbu
+        imageline($image, 50, $height - 50, $width - 50, $height - 50, $black); // X
+        imageline($image, 50, 50, 50, $height - 50, $black);                    // Y
+
+        // Hitung skala
+        $maxValue = max(max($bb), max($tinggiRahim), max($lingkarLengan));
+        $scale    = ($height - 100) / ($maxValue + 10);
+
+        // Gambar garis untuk setiap dataset
+        $this->drawDataset($image, $bb, $labels, $scale, $red, $height);
+        $this->drawDataset($image, $tinggiRahim, $labels, $scale, $blue, $height);
+        $this->drawDataset($image, $lingkarLengan, $labels, $scale, $green, $height);
+
+        // Legenda
+        $this->drawLegend($image, [
+            ['Berat Badan (kg)', $red],
+            ['Tinggi Rahim (cm)', $blue],
+            ['Lingkar Lengan (cm)', $green],
+        ]);
+
+        // Label sumbu X
+        foreach ($labels as $i => $label) {
+            $x = 50 + ($i * 100);
+            imagestring($image, 3, $x - 15, $height - 40, $label, $black);
+        }
+
+        // Simpan gambar
+        $chartPath = storage_path('app/public/charts/combined_chart.png');
+        if (! file_exists(dirname($chartPath))) {
+            mkdir(dirname($chartPath), 0777, true);
+        }
+        imagepng($image, $chartPath);
+        imagedestroy($image);
+
+        return $chartPath;
+    }
+
+    private function drawDataset($image, $data, $labels, $scale, $color, $baseHeight)
+    {
+        $prevX = $prevY = null;
+        foreach ($data as $i => $value) {
+            $x = 50 + ($i * 100);
+            $y = $baseHeight - 50 - ($value * $scale);
+
+            // Titik data
+            imagefilledellipse($image, $x, $y, 8, 8, $color);
+
+            // Garis penghubung
+            if ($prevX !== null) {
+                imageline($image, $prevX, $prevY, $x, $y, $color);
+            }
+
+            // Label nilai
+            imagestring($image, 3, $x - 10, $y - 20, $value, $color);
+
+            $prevX = $x;
+            $prevY = $y;
+        }
+    }
+
+    private function drawLegend($image, $items)
+    {
+        $x = 600;
+        $y = 50;
+
+        foreach ($items as $i => $item) {
+            list($text, $color) = $item;
+
+            // Kotak warna
+            imagefilledrectangle($image, $x, $y + ($i * 30), $x + 20, $y + 20 + ($i * 30), $color);
+            imagestring($image, 4, $x + 30, $y + ($i * 30), $text, $color);
+        }
+    }
 }

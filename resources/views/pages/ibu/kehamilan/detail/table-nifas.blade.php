@@ -61,18 +61,10 @@
                 <td>{{ $nifa->created_at->format('d/m/Y H:i') }}</td>
                 <td>
                     <div class="btn-group">
-                        <a href="{{ route('admin.nifas.detail', $nifa->id) }}" class="btn btn-sm btn-info"
+                        <a href="{{ route('ibu.nifas.detail', $nifa->id) }}" class="btn btn-sm btn-info"
                             title="Detail">
                             <i class="fas fa-eye"></i>
                         </a>
-                        <button data-id="{{ $nifa->id }}" data-toggle="modal" data-target="#modal-tambah-nifas"
-                            class="btn btn-sm btn-warning edit-button-nifas" title="Edit">
-                            <i class="fas fa-edit"></i>
-                        </button>
-                        <button class="btn btn-sm btn-danger" title="Hapus"
-                            onclick="confirmDelete('{{ route('admin.nifas.destroy', $nifa->id) }}','.table-responsive-nifas', '{{ route('admin.nifas.index') }}', '#tabel-nifas')">
-                            <i class="fas fa-trash"></i>
-                        </button>
                     </div>
                 </td>
             </tr>

@@ -1,5 +1,5 @@
 @extends('layouts.app')
-@section('title', 'Kehamilan')
+@section('title', 'Kehamilan ')
 @push('styles')
     <link rel="stylesheet" href="{{ asset('') }}assets/modules/datatables/datatables.min.css">
     <link rel="stylesheet"
@@ -17,7 +17,8 @@
 @section('content')
     <section class="section">
         <div class="section-header">
-            <h1>@yield('title')</h1>
+            <h1>@yield('title') - Anak Ke {{ $kehamilan->anak_ke }} Ibu {{ $kehamilan->ibu->nama }} -
+                {{ $kehamilan->ibu->nik }}</h1>
             <div class="section-header-breadcrumb">
                 <div class="breadcrumb-item active"><a href="{{ route('admin.dashboard') }}">Dashboard</a></div>
                 <div class="breadcrumb-item">@yield('title')</div>
@@ -28,8 +29,11 @@
             <div class="row">
                 <div class="col-lg-12">
                     <div class="card">
-                        <div class="card-header">
+                        <div class="card-header d-flex justify-content-between">
                             <h4>Grafik Kehamilan</h4>
+                            <a href="{{ route('ibu.kehamilan.exportPdf', $kehamilan->id) }}" class="btn btn-danger">
+                                <i class="fas fa-file-pdf"></i> Export PDF
+                            </a>
                         </div>
                         <div class="card-body">
                             <canvas id="kehamilanChart" height="158"></canvas>
@@ -65,11 +69,12 @@
                                                 <div class="form-group mb-2">
                                                     <label for="bulan_perkiraan_lahir">Bulan Perkiraan Lahir</label>
                                                     <div class="d-flex align-items-center">
-                                                        <input type="text" value="{{ $kehamilan->bulan }}" name="bulan"
-                                                            id="bulan" class="form-control mr-2" style="flex: 1;"
-                                                            disabled>
-                                                        <input type="text" value="{{ $kehamilan->tahun }}" name="tahun"
-                                                            id="tahun" class="form-control" style="flex: 1;" disabled>
+                                                        <input type="text" value="{{ $kehamilan->bulan }}"
+                                                            name="bulan" id="bulan" class="form-control mr-2"
+                                                            style="flex: 1;" disabled>
+                                                        <input type="text" value="{{ $kehamilan->tahun }}"
+                                                            name="tahun" id="tahun" class="form-control"
+                                                            style="flex: 1;" disabled>
                                                     </div>
                                                     <div class="invalid-feedback" id="error-bulan_perkiraan_lahir"></div>
                                                 </div>
