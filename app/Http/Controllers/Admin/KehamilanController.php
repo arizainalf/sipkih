@@ -293,6 +293,7 @@ class KehamilanController extends Controller
 
     public function updatePersalinan(Request $request, $id)
     {
+
         $validator = Validator::make($request->all(), [
             'kehamilan_id'          => 'required|exists:kehamilans,id',
             'tanggal_persalinan'    => 'required|date',
@@ -309,6 +310,7 @@ class KehamilanController extends Controller
         if ($validator->fails()) {
             return response()->json(['errors' => $validator->errors()], 422);
         }
+
 
         try {
             $persalinan = Persalinan::findOrFail($id);
@@ -333,31 +335,53 @@ class KehamilanController extends Controller
     public function updateBayi(Request $request, $id)
     {
         // dd($request->all());
-        $validator = Validator::make($request->all(), [
-            'persalinan_id'           => 'required|exists:persalinans,id',
-            'berat_lahir_gram'        => 'required|integer|min:500|max:6000',
-            'panjang_badan_cm'        => 'required|numeric|min:20|max:60',
-            'lingkar_kepala_cm'       => 'required|numeric|min:20|max:40',
-            'jenis_kelamin'           => 'required|in:Laki-laki,Perempuan,Tidak bisa ditentukan',
-            'kelainan_bawaan'         => 'nullable|string',
-            'keterangan_tambahan'     => 'nullable|string',
-            // Boolean fields
-            'segera_menangis'         => 'nullable',
-            'menangis_beberapa_saat'  => 'nullable',
-            'tidak_menangis'          => 'nullable',
-            'seluruh_tubuh_kemerahan' => 'nullable',
-            'anggota_gerak_kebiruan'  => 'nullable',
-            'seluruh_tubuh_biru'      => 'nullable',
-            'meninggal'               => 'nullable',
-            'imd'                     => 'nullable',
-            'vitamin_k1'              => 'nullable',
-            'salep_mata'              => 'nullable',
-            'imunisasi_hb0'           => 'nullable',
-        ]);
+$request->validate([
+    'persalinan_id'           => 'required|exists:persalinans,id',
+    'berat_lahir_gram'        => 'required|integer|min:500|max:6000',
+    'panjang_badan_cm'        => 'required|numeric|min:20|max:60',
+    'lingkar_kepala_cm'       => 'required|numeric|min:20|max:40',
+    'jenis_kelamin'           => 'required|in:Laki-laki,Perempuan,Tidak bisa ditentukan',
+    'kelainan_bawaan'         => 'nullable|string',
+    'keterangan_tambahan'     => 'nullable|string',
+    // Boolean fields
+    'segera_menangis'         => 'nullable',
+    'menangis_beberapa_saat'  => 'nullable',
+    'tidak_menangis'          => 'nullable',
+    'seluruh_tubuh_kemerahan' => 'nullable',
+    'anggota_gerak_kebiruan'  => 'nullable',
+    'seluruh_tubuh_biru'      => 'nullable',
+    'meninggal'               => 'nullable',
+    'imd'                     => 'nullable',
+    'vitamin_k1'              => 'nullable',
+    'salep_mata'              => 'nullable',
+    'imunisasi_hb0'           => 'nullable',
+], [
+    // Pesan error dalam bahasa Indonesia
+    'persalinan_id.required'           => 'ID persalinan wajib diisi.',
+    'persalinan_id.exists'             => 'Persalinan yang dipilih tidak valid.',
 
-        if ($validator->fails()) {
-            return response()->json(['errors' => $validator->errors()], 422);
-        }
+    'berat_lahir_gram.required'        => 'Berat lahir dalam gram wajib diisi.',
+    'berat_lahir_gram.integer'         => 'Berat lahir harus berupa angka.',
+    'berat_lahir_gram.min'             => 'Berat lahir minimal 500 gram.',
+    'berat_lahir_gram.max'             => 'Berat lahir maksimal 6000 gram.',
+
+    'panjang_badan_cm.required'        => 'Panjang badan dalam cm wajib diisi.',
+    'panjang_badan_cm.numeric'         => 'Panjang badan harus berupa angka.',
+    'panjang_badan_cm.min'             => 'Panjang badan minimal 20 cm.',
+    'panjang_badan_cm.max'             => 'Panjang badan maksimal 60 cm.',
+
+    'lingkar_kepala_cm.required'       => 'Lingkar kepala dalam cm wajib diisi.',
+    'lingkar_kepala_cm.numeric'        => 'Lingkar kepala harus berupa angka.',
+    'lingkar_kepala_cm.min'            => 'Lingkar kepala minimal 20 cm.',
+    'lingkar_kepala_cm.max'            => 'Lingkar kepala maksimal 40 cm.',
+
+    'jenis_kelamin.required'           => 'Jenis kelamin wajib dipilih.',
+    'jenis_kelamin.in'                 => 'Jenis kelamin yang dipilih tidak valid.',
+
+    'kelainan_bawaan.string'           => 'Kolom kelainan bawaan harus berupa teks.',
+
+    'keterangan_tambahan.string'       => 'Kolom keterangan tambahan harus berupa teks.',
+]);
 
         try {
             $bayi = Bayi::findOrFail($id);

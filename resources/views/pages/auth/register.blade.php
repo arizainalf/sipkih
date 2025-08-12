@@ -7,8 +7,12 @@
 @section('content')
 
     <div class="col-12 col-sm-10 offset-sm-1 col-md-8 offset-md-2 col-lg-8 offset-lg-2 col-xl-8 offset-xl-2">
-        <div class="login-brand">
-            <img src="assets/img/stisla-fill.svg" alt="logo" width="100" class="shadow-light rounded-circle">
+      <div class="login-brand">
+            <img src="{{ asset('storage/' . getPengaturan()->logo) }}" alt="logo" width="100"
+                class="shadow-light rounded-circle">
+
+            <h5 class="mt-4">{{ getPengaturan()->nama_aplikasi }}</h5>
+            <h6 class="mt-1">{{ getPengaturan()->deskripsi }}</h6>
         </div>
 
         <div class="card card-primary">
@@ -36,9 +40,10 @@
                         <div class="form-group col-md-12 col-xl-6">
                             <label for="pembiayaan">Biaya</label>
                             <select name="pembiayaan" id="pembiayaan" class="form-control">
-                                <option value="Mandiri">Mandiri</option>
-                                <option value="kis">KIS</option>
-                                <option value="kip">KIP</option>
+                                 <option value="">Pilih Pembiayaan</option>
+                                    <option value="Mandiri">Mandiri</option>
+                                    <option value="KIS">KIS</option>
+                                    <option value="KIP">KIP</option>
                             </select>
                             <div class="invalid-feedback" id="errorbiaya">
                             </div>

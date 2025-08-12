@@ -296,6 +296,7 @@ const loadSelectOptions = (selector, url, selectedValue = null) => {
 
 const handleValidationErrors = (error, formId = null, fields = null) => {
   console.log(error.responseJSON)
+  console.log('ini', message)
   if (error.responseJSON.data && fields) {
     fields.forEach(field => {
       if (error.responseJSON.data[field]) {

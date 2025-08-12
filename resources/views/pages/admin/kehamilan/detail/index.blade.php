@@ -213,7 +213,7 @@
                                                         <label for="waktu_persalinan">Waktu Persalinan</label>
                                                         <input type="time" name="waktu_persalinan"
                                                             id="waktu_persalinan" class="form-control"
-                                                            value="{{ $kehamilan->persalinan->waktu_persalinan }}">
+                                                            value="{{ \Carbon\Carbon::parse($kehamilan->persalinan->waktu_persalinan)->format('H:i') }}">
                                                         <div class="invalid-feedback" id="error-waktu_persalinan"></div>
                                                     </div>
 
@@ -347,7 +347,7 @@
                                                             <input type="number" value="{{ $kehamilan->anak_ke }}"
                                                                 id="anak_ke" class="form-control" min="1"
                                                                 required>
-                                                            <div class="invalid-feedback" id="error-anak_ke"></div>
+                                                            <div class="invalid-feedback" id="erroranak_ke"></div>
                                                         </div>
 
                                                         <div class="form-group mb-2">
@@ -355,7 +355,7 @@
                                                             <input type="number" name="berat_lahir_gram"
                                                                 id="berat_lahir_gram" class="form-control" required
                                                                 value="{{ $kehamilan->persalinan->bayi->berat_lahir_gram }}">
-                                                            <div class="invalid-feedback" id="error-berat_lahir_gram">
+                                                            <div class="invalid-feedback" id="errorberat_lahir_gram">
                                                             </div>
                                                         </div>
 
@@ -364,7 +364,7 @@
                                                             <input type="number" step="0.1" name="panjang_badan_cm"
                                                                 id="panjang_badan_cm" class="form-control" required
                                                                 value="{{ $kehamilan->persalinan->bayi->panjang_badan_cm }}">
-                                                            <div class="invalid-feedback" id="error-panjang_badan_cm">
+                                                            <div class="invalid-feedback" id="errorpanjang_badan_cm">
                                                             </div>
                                                         </div>
                                                     </div>
@@ -375,7 +375,7 @@
                                                             <input type="number" step="0.1" name="lingkar_kepala_cm"
                                                                 id="lingkar_kepala_cm" class="form-control" required
                                                                 value="{{ $kehamilan->persalinan->bayi->lingkar_kepala_cm }}">
-                                                            <div class="invalid-feedback" id="error-lingkar_kepala_cm">
+                                                            <div class="invalid-feedback" id="errorlingkar_kepala_cm">
                                                             </div>
                                                         </div>
 
@@ -394,7 +394,7 @@
                                                                     {{ $kehamilan->persalinan->bayi->jenis_kelamin == 'Tidak bisa ditentukan' ? 'selected' : '' }}>
                                                                     Tidak bisa ditentukan</option>
                                                             </select>
-                                                            <div class="invalid-feedback" id="error-jenis_kelamin"></div>
+                                                            <div class="invalid-feedback" id="errorjenis_kelamin"></div>
                                                         </div>
                                                     </div>
                                                 </div>
@@ -839,7 +839,7 @@
                                                 <div class="form-group mb-2">
                                                     <label for="kesimpulan">Kesimpulan</label>
                                                     <textarea name="kesimpulan" id="kesimpulan" class="form-control" rows="3" required>{{ $kehamilan->persalinan->kesimpulanNifas->kesimpulan }}</textarea>
-                                                    <div class="invalid-feedback" id="error-kesimpulan"></div>
+                                                    <div class="invalid-feedback" id="errorkesimpulan"></div>
                                                 </div>
                                             </div>
 
@@ -1183,7 +1183,7 @@
                 }
 
                 const errorCallback = function(err) {
-                    handleValidationErrors(
+                    handleValidationErrors(err, '#form-bayi', [
                         'persalinan_id',
                         'anak_ke',
                         'berat_lahir_gram',
@@ -1203,7 +1203,7 @@
                         'salep_mata',
                         'imunisasi_hb0',
                         'keterangan_tambahan'
-                    );
+                    ]);
                 }
 
                 ajaxCall(url, method, data, successCallback, errorCallback);
